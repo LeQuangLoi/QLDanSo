@@ -211,7 +211,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HouseholdController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\TemplateFileController.cs" />
     <Compile Include="DataManagerment\ConnectionStrings.cs" />
     <Compile Include="DataManagerment\DatabaseFactory.cs" />
     <Compile Include="DataManagerment\DataModel\Address.cs" />
@@ -2375,7 +2374,6 @@
     <Content Include="Views\Household\Demo.cshtml" />
     <Content Include="Views\Household\Index.cshtml" />
     <Content Include="Views\ExportTemplateFile\AreaList.cshtml" />
-    <Content Include="Views\TemplateFile\AreaList.cshtml" />
     <Content Include="Views\Home\AreaList.cshtml" />
     <Content Include="Views\ExportTemplateFile\Index.cshtml" />
   </ItemGroup>

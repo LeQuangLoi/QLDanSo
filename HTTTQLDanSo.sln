@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.34301.259
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTTTQLDanSo", "HTTTQLDanSo\HTTTQLDanSo.csproj", "{E731C4C7-3120-4F95-A95E-696E0EBF1E31}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E731C4C7-3120-4F95-A95E-696E0EBF1E31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E731C4C7-3120-4F95-A95E-696E0EBF1E31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E731C4C7-3120-4F95-A95E-696E0EBF1E31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E731C4C7-3120-4F95-A95E-696E0EBF1E31}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6AE6369C-93F4-42B4-A9DE-891BA398A710}
+	EndGlobalSection
+EndGlobal

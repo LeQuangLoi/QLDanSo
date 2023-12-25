@@ -1,0 +1,357 @@
+﻿<head>
+</head>
+@{
+    var regionId = ViewBag.RegionId;
+}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            @*<li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>*@
+            <!-- Add more menu items here -->
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-3 left-column">
+            <div class="panel">
+                <div class="form-group row">
+                    <label for="staticEmail" class="col-sm-3 col-form-label">Xã Phường:</label>
+                    <div class="col-sm-9">
+                        @ViewBag.RegionName
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="staticEmail" class="col-sm-3 col-form-label">Đia chỉ:</label>
+                    <div class="col-sm-9">
+                        @Html.DropDownList("cboAddress", new SelectList(ViewBag.Address, "Value", "Text"))
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <div class="card">
+
+                            <div class="card-body">
+                                @*<div class="card-header">
+                                    Search
+                                    <input type="text" name="txtSearch" placeholder="Search!" class="txtSearch" />
+                                    <button type="button" class="btn btn-warning" id="search">Search</button>
+                                </div>*@
+                                <table id="household" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Số hộ</th>
+                                            <th scope="col">SN/Tên người</th>
+                                            <th scope="col">Đã rà soát</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="load-list">
+                                    </tbody>
+                                </table>
+                                <div class="card-footer">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination" id="household-load-pagination">
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="form-group row">
+                    <div>
+                        <button class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                        <button class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+                        <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                        <button class="btn btn-info">
+                            <span class="glyphicon glyphicon-floppy-save"></span>
+                            Export <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="panel">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a id="tab1" href="#tab1" data-toggle="tab">Tab 1</a></li>
+                    <li><a href="#tab2" data-toggle="tab"></a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab1">
+                        @*<div class="card-header">
+            Search
+            <input type="text" name="txtSearch" placeholder="Search!" class="txtSearch" />
+            <button type="button" class="btn btn-warning" id="search">Search</button>
+        </div>*@
+                        <div class="card">
+
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Họ và tên</th>
+                                            <th scope="col">Quan hệ</th>
+                                            <th scope="col">Ngày sinh</th>
+                                            <th scope="col">Dân tộc</th>
+                                            <th scope="col">Giới tính</th>
+                                            <th scope="col">TĐ học vấn</th>
+                                            <th scope="col">TĐ chuyên môn</th>
+                                            <th scope="col">TĐ hôn nhân</th>
+                                            <th scope="col">Cư trú</th>
+                                            <th scope="col">Mã đối tượng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="personal" class="load-list">
+                                    </tbody>
+                                </table>
+                                <div class="card-footer">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination" id="tab1-load-pagination">
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div> 
+                        </div>
+                               
+                            </div>
+                    <div class="tab-pane" id="tab2">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Ngày tháng</th>
+                                    <th>Biến động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="biendong">
+                                <!-- Data for Tab 2 populated from the server list -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script> 
+    $(document).ready(function () {
+    // Initial call to load addresses
+        loadAddresses();
+
+        @*$('#cboAddress').change(function () {
+            var addressId = $('#cboAddress').val();
+            loadHousehold(null, '@(ViewBag.RegionId)', addressId, 5);
+        });*@
+    });
+
+    function loadAddresses() {
+        $.ajax({
+            url: '@Url.Action("LoadAddressesByWorkerIdAsync", "HouseHold")',
+            type: 'GET',
+            data: { regionId: '@(ViewBag.RegionId)' },
+            success: function (data) {
+                $('#cboAddress').html('');
+                $.each(data, function (index, item) {
+                    $('#cboAddress').append($('<option></option>').val(item.Value).html(item.Text));
+                });
+                if (data && data.length) {
+                    console.log('page xx: 1');
+                    loadHousehold(null, '@(ViewBag.RegionId)', data[0].Value, 1);
+                }
+            }
+        });
+    }
+
+    var clickPagingHousehold = function (page) {
+    event.preventDefault();
+    console.log('page xx: ' + page);
+    var addressId = $('#cboAddress').val();
+    var txtSearch = $(".txtSearch").val();
+    if (txtSearch) {
+        loadHousehold(txtSearch, '@(ViewBag.RegionId)', addressId, page);
+    } else {
+        loadHousehold(null, '@(ViewBag.RegionId)', addressId, page);
+    }
+};
+
+    var loadHousehold = function (txtSearch, regionID, addressID, page) {
+            $.ajax({
+            url: '@Url.Action("GetHouseholdAsync", "Household")',
+            type: "GET",
+                data: { txtSearch: txtSearch, regionID: regionID, addressID: addressID, page: page },
+            dataType: 'json',
+            contentType: 'application/json;charset=utf-8',
+            success: function (result) {
+                var str = "";
+                var numSize = 0;
+                var pageCurrent = page;
+                var pagination_string = "";
+                $.each(result.data, function (index, value) {
+                    //create pagination
+                    pageCurrent = result.pageCurrent;
+
+                    numSize = result.numSize;
+                    str += `<tr onclick='loadPersonal("","${value.HouseHold_ID}", "${value.Region_ID}","${value.HouseHold_Number}","${pageCurrent}")'>`;
+                    str += "<td>" + (value.HouseHold_Code)+"</td>";
+                    str += "<td>" + value.HouseHold_Number + "</td>";
+                    str += "<td> <input type='checkbox' value='" + value.IsChecked+"' /></td>";
+                    str += "</tr>";
+
+
+                });
+                //create button previous
+                if (pageCurrent > 1) {
+                    var pagePrevious = pageCurrent - 1;
+                    pagination_string += '<li class="page-item"><a href="" class="page-link" data-page=' + pagePrevious + '>Previous</a></li>';
+                }
+
+                for (i = 1; i <= numSize; i++) {
+                    if (i == pageCurrent) {
+                        pagination_string += '<li class="page-item active"><a href="" class="page-link" onclick="clickPagingHousehold(' + i +')"  data-page=' + i + '>' + pageCurrent + '</a></li>';
+                    } else {
+                        pagination_string += '<li class="page-item"><a href="" class="page-link"  onclick="clickPagingHousehold(' + i +')" data-page=' + i + '>' + i + '</a></li>';
+                    }
+                }
+
+                //create button next
+                if (pageCurrent > 0 && pageCurrent < numSize) {
+                    var pageNext = pageCurrent + 1;
+                    pagination_string += '<li class="page-item"><a href="" class="page-link" onclick="clickPagingHousehold(' + pageNext+')" data-page=' + pageNext + '>Next</a></li>';
+                }
+
+                //load pagination
+                $("#household-load-pagination").html(pagination_string);
+                $("#household tbody").html(str);
+                if (result && result.data && result.data.length > 0) {
+                    loadPersonal(null, result.data[0].HouseHold_ID, result.data[0].Region_ID, result.data[0].HouseHold_Number,1);
+                }
+            }
+        });
+    }
+
+    var loadPersonal = function (txtSearch, houseHoldID, regionID, houseHold_Number, page) {
+            $("#tab1").html(houseHold_Number);
+            $.ajax({
+            url: '@Url.Action("GetPersonalAsync", "Household")',
+            type: "GET",
+                data: { txtSearch: txtSearch, houseHoldID: houseHoldID, regionID: regionID, page: page },
+            dataType: 'json',
+            contentType: 'application/json;charset=utf-8',
+            success: function (result) {
+                var str = "";
+                $.each(result.data, function (index, value) {
+
+                    str += "<tr>";
+                    str += "<td>" + (value.Full_Name)+"</td>";
+                    str += "<td>" + value.Relation_Name + "</td>";
+                    str += "<td>" + value.DateOfBirth + "</td>";
+                    str += "<td>" + value.Ethnic_Name + "</td>";
+                    str += "<td>" + value.Sex_Name + "</td>";
+                    str += "<td>" + value.Education_Name + "</td>";
+                    str += "<td>" + value.Technical_Name + "</td>";
+                    str += "<td>" + value.Marital_Name + "</td>";
+                    str += "<td>" + value.Residence_Name + "</td>";
+                    str += "</tr>";
+
+                    //create pagination
+                    var pagination_string = "";
+                    var pageCurrent = result.pageCurrent;
+                    var numSize = result.numSize;
+
+                    //create button previous
+                    if (pageCurrent > 1) {
+                        var pagePrevious = pageCurrent - 1;
+                        pagination_string += '<li class="page-item"><a href="" class="page-link" data-page=' + pagePrevious + '>Previous</a></li>';
+                    }
+
+                    for (i = 1; i <= numSize; i++){
+                        if (i == pageCurrent) {
+                            pagination_string += '<li class="page-item active"><a href="" class="page-link" data-page=' + i + '>'+pageCurrent+'</a></li>';
+                        } else {
+                            pagination_string += '<li class="page-item"><a href="" class="page-link" data-page=' + i + '>'+i+'</a></li>';
+                        }
+                        }
+
+						//create button next
+                        if (pageCurrent > 0 && pageCurrent < numSize) {
+                        var pageNext = pageCurrent + 1;
+                        pagination_string += '<li class="page-item"><a href="" class="page-link"  data-page=' + pageNext + '>Next</a></li>';
+                        }
+
+                //load pagination
+                $("#load-pagination").html(pagination_string);
+                });
+
+                if (result && result.data && result.data.length) {
+                    var personal = result.data[0];
+                    var region = $('#cboAddress').val();
+                    loadPersonalChange(null, personal.Personal_ID, region,1);
+                }
+                //load str to class="load-list"
+                $("#personal").html(str);
+            }
+        });
+    }
+
+    var loadPersonalChange = function (txtSearch, personalId, regionID, page) {
+        $("#tab2").html('Thông tin biến động');
+        // set active
+            $.ajax({
+            url: '@Url.Action("GetPersonalChangeAsync", "Household")',
+            type: "GET",
+                data: { txtSearch: txtSearch, personalId: personalId, regionID: regionID, page: page },
+            dataType: 'json',
+            contentType: 'application/json;charset=utf-8',
+            success: function (result) {
+                var str = "";
+                $.each(result.data, function (index, value) {
+
+                    str += "<tr>";
+                    str += "<td>" + (value.Change_Date)+"</td>";
+                    str += "<td>" + value.ChangeType_Name + "</td>";
+                    str += "</tr>";
+
+                    //create pagination
+                    var pagination_string = "";
+                    var pageCurrent = result.pageCurrent;
+                    var numSize = result.numSize;
+
+                    //create button previous
+                    if (pageCurrent > 1) {
+                        var pagePrevious = pageCurrent - 1;
+                        pagination_string += '<li class="page-item"><a href="" class="page-link" data-page=' + pagePrevious + '>Previous</a></li>';
+                    }
+
+                    for (i = 1; i <= numSize; i++){
+                        if (i == pageCurrent) {
+                            pagination_string += '<li class="page-item active"><a href="" class="page-link" data-page=' + i + '>'+pageCurrent+'</a></li>';
+                        } else {
+                            pagination_string += '<li class="page-item"><a href="" class="page-link" data-page=' + i + '>'+i+'</a></li>';
+                        }
+                        }
+
+						//create button next
+                        if (pageCurrent > 0 && pageCurrent < numSize) {
+                        var pageNext = pageCurrent + 1;
+                        pagination_string += '<li class="page-item"><a href="" class="page-link"  data-page=' + pageNext + '>Next</a></li>';
+                        }
+
+                //load pagination
+                $("#load-pagination").html(pagination_string);
+                });
+
+                //load str to class="load-list"
+                $("#biendong").html(str);
+            }
+        });
+    }
+</script>

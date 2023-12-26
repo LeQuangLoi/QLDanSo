@@ -322,6 +322,12 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\AreaList.jpg" />
+    <Content Include="Images\ContraceptiveAndMaternityMeasures-0.jpg" />
+    <Content Include="Images\ContraceptiveAndMaternityMeasures-1.jpg" />
+    <Content Include="Images\ContraceptiveAndMaternityMeasures-2.jpg" />
+    <Content Include="Images\ContraceptiveAndMaternityMeasures-3.jpg" />
+    <Content Include="Images\ContraceptiveAndMaternityMeasures-4.jpg" />
+    <Content Include="Images\Ethniclist.jpg" />
     <Content Include="Images\logo.svg" />
     <Content Include="Images\YearlyCompare-0.jpg" />
     <Content Include="Images\YearlyCompare-1.jpg" />
@@ -2409,6 +2415,8 @@
     <Content Include="Views\DocumentGuide\A0.cshtml" />
     <Content Include="Views\DocumentGuide\InformationReceipt.cshtml" />
     <Content Include="Views\DocumentGuide\YearlyCompare.cshtml" />
+    <Content Include="Views\DocumentGuide\ContraceptiveAndMaternityMeasures.cshtml" />
+    <Content Include="Views\DocumentGuide\EthnicList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

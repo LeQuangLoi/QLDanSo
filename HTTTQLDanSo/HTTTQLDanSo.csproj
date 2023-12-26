@@ -207,6 +207,7 @@
     <Compile Include="Constants\AppSettings.cs" />
     <Compile Include="Constants\DocumentTemplateNameConstant.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DocumentGuideController.cs" />
     <Compile Include="Controllers\ExportTemplateFileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HouseholdController.cs" />
@@ -322,6 +323,35 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\AreaList.jpg" />
     <Content Include="Images\logo.svg" />
+    <Content Include="Images\YearlyCompare-0.jpg" />
+    <Content Include="Images\YearlyCompare-1.jpg" />
+    <Content Include="Images\YearlyCompare-10.jpg" />
+    <Content Include="Images\YearlyCompare-11.jpg" />
+    <Content Include="Images\YearlyCompare-12.jpg" />
+    <Content Include="Images\YearlyCompare-13.jpg" />
+    <Content Include="Images\YearlyCompare-14.jpg" />
+    <Content Include="Images\YearlyCompare-15.jpg" />
+    <Content Include="Images\YearlyCompare-16.jpg" />
+    <Content Include="Images\YearlyCompare-17.jpg" />
+    <Content Include="Images\YearlyCompare-18.jpg" />
+    <Content Include="Images\YearlyCompare-19.jpg" />
+    <Content Include="Images\YearlyCompare-2.jpg" />
+    <Content Include="Images\YearlyCompare-20.jpg" />
+    <Content Include="Images\YearlyCompare-21.jpg" />
+    <Content Include="Images\YearlyCompare-22.jpg" />
+    <Content Include="Images\YearlyCompare-23.jpg" />
+    <Content Include="Images\YearlyCompare-24.jpg" />
+    <Content Include="Images\YearlyCompare-25.jpg" />
+    <Content Include="Images\YearlyCompare-26.jpg" />
+    <Content Include="Images\YearlyCompare-27.jpg" />
+    <Content Include="Images\YearlyCompare-28.jpg" />
+    <Content Include="Images\YearlyCompare-3.jpg" />
+    <Content Include="Images\YearlyCompare-4.jpg" />
+    <Content Include="Images\YearlyCompare-5.jpg" />
+    <Content Include="Images\YearlyCompare-6.jpg" />
+    <Content Include="Images\YearlyCompare-7.jpg" />
+    <Content Include="Images\YearlyCompare-8.jpg" />
+    <Content Include="Images\YearlyCompare-9.jpg" />
     <Content Include="plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
     <Content Include="plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css" />
     <Content Include="plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js" />
@@ -2376,6 +2406,9 @@
     <Content Include="Views\ExportTemplateFile\AreaList.cshtml" />
     <Content Include="Views\Home\AreaList.cshtml" />
     <Content Include="Views\ExportTemplateFile\Index.cshtml" />
+    <Content Include="Views\DocumentGuide\A0.cshtml" />
+    <Content Include="Views\DocumentGuide\InformationReceipt.cshtml" />
+    <Content Include="Views\DocumentGuide\YearlyCompare.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

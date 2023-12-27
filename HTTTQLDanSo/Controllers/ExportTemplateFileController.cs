@@ -17,6 +17,66 @@ namespace HTTTQLDanSo.Controllers
             return DownloadFile(DocumentTemplateNameConstant.AreaList);
         }
 
+        public ActionResult A0CVT()
+        {
+            // Get the file path of the document
+            return View();
+        }
+
+        public ActionResult P0CVT()
+        {
+            // Get the file path of the document
+            return View();
+        }
+
+        public ActionResult ReportCTVMouthly()
+        {
+            // Get the file path of the document
+            return View();
+        }
+
+        public ActionResult ReportCTVQuarterly()
+        {
+            // Get the file path of the document
+            return View();
+        }
+
+        public ActionResult ReportCTVAnnualy()
+        {
+            // Get the file path of the document
+            return View();
+        }
+
+        public ActionResult DownloadDocumentReportCVTMounthly()
+        {
+            // Get the file path of the document
+            return DownloadFile(DocumentTemplateNameConstant.ReportCVTMounthly);
+        }
+
+        public ActionResult DownloadDocumentReportCVTQuarterly()
+        {
+            // Get the file path of the document
+            return DownloadFile(DocumentTemplateNameConstant.ReportCVTQuarterly);
+        }
+
+        public ActionResult DownloadDocumentReportCVTAnnualy()
+        {
+            // Get the file path of the document
+            return DownloadFile(DocumentTemplateNameConstant.ReportCVTAnnualy);
+        }
+
+        public ActionResult DownloadDocumentP0CVT()
+        {
+            // Get the file path of the document
+            return DownloadFile(DocumentTemplateNameConstant.P0CVT);
+        }
+
+        public ActionResult DownloadDocumentA0CVT()
+        {
+            // Get the file path of the document
+            return DownloadFile(DocumentTemplateNameConstant.A0CVT);
+        }
+
         public ActionResult DownloadFile(string fileName)
         {
             // Get the file path based on the provided file name

@@ -321,6 +321,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\A0CVT.jpg" />
     <Content Include="Images\AreaList.jpg" />
     <Content Include="Images\ContraceptiveAndMaternityMeasures-0.jpg" />
     <Content Include="Images\ContraceptiveAndMaternityMeasures-1.jpg" />
@@ -329,6 +330,13 @@
     <Content Include="Images\ContraceptiveAndMaternityMeasures-4.jpg" />
     <Content Include="Images\Ethniclist.jpg" />
     <Content Include="Images\logo.svg" />
+    <Content Include="Images\P0CTV1.jpg" />
+    <Content Include="Images\P0CTV2.jpg" />
+    <Content Include="Images\P0CTV3.jpg" />
+    <Content Include="Images\ReportCTVMouthly.jpg" />
+    <Content Include="Images\ReportCVTAnnualy1.jpg" />
+    <Content Include="Images\ReportCVTAnnualy2.jpg" />
+    <Content Include="Images\ReportCVTQuarterly.jpg" />
     <Content Include="Images\YearlyCompare-0.jpg" />
     <Content Include="Images\YearlyCompare-1.jpg" />
     <Content Include="Images\YearlyCompare-10.jpg" />
@@ -2362,6 +2370,11 @@
     <Content Include="plugins\summernote\summernote.min.js.map" />
     <Content Include="plugins\toastr\toastr.js.map" />
     <Content Include="DocumentTemplates\AreaList.doc" />
+    <Content Include="DocumentTemplates\A0CVT.doc" />
+    <Content Include="DocumentTemplates\P0CTV .doc" />
+    <Content Include="DocumentTemplates\ReportCTVAnnually.doc" />
+    <Content Include="DocumentTemplates\ReportCTVMouthly.doc" />
+    <Content Include="DocumentTemplates\ReportCTVQuarterly.doc" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2417,6 +2430,12 @@
     <Content Include="Views\DocumentGuide\YearlyCompare.cshtml" />
     <Content Include="Views\DocumentGuide\ContraceptiveAndMaternityMeasures.cshtml" />
     <Content Include="Views\DocumentGuide\EthnicList.cshtml" />
+    <Content Include="Views\DocumentGuide\EducationLevelComparisonTable.cshtml" />
+    <Content Include="Views\ExportTemplateFile\A0CVT.cshtml" />
+    <Content Include="Views\ExportTemplateFile\P0CVT.cshtml" />
+    <Content Include="Views\ExportTemplateFile\ReportCTVMouthly.cshtml" />
+    <Content Include="Views\ExportTemplateFile\ReportCTVQuarterly.cshtml" />
+    <Content Include="Views\ExportTemplateFile\ReportCTVAnnualy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

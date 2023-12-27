@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "P0CVT";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row mt-3">
+        <div class="col-12">
+            <h2 class="text-center">Phiếu P0-CVT</h2>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12">
+            <button id="downloadDocumentBtn" class="btn btn-primary">Download Document</button>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12 centered-image">
+            <img src="~/Images/P0CTV1.jpg" class="img-fluid" alt="Captured Image">
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12 centered-image">
+            <img src="~/Images/P0CTV2.jpg" class="img-fluid" alt="Captured Image">
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12 centered-image">
+            <img src="~/Images/P0CTV3.jpg" class="img-fluid" alt="Captured Image">
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#downloadDocumentBtn").click(function () {
+            $.ajax({
+                url: '@Url.Action("DownloadDocumentP0CVT", "ExportTemplateFile")',
+                method: 'GET',
+                xhrFields: {
+                    responseType: 'blob' // This sets the response type to blob
+                },
+                success: function (data, status, xhr) {
+                    var filename = 'defaultFilename.extension';
+                    var disposition = xhr.getResponseHeader('Content-Disposition');
+
+                    if (disposition && disposition.indexOf('attachment') !== -1) {
+                        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                        var matches = filenameRegex.exec(disposition);
+                        if (matches != null && matches[1]) {
+                            filename = matches[1].replace(/['"]/g, '');
+                        }
+                    }
+
+                    var blob = new Blob([data], { type: 'application/octet-stream' });
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = filename;
+                    link.click();
+                },
+                error: function (xhr, status, error) {
+                    // Handle error if the download is not successful
+                }
+            });
+        });
+    });
+</script>

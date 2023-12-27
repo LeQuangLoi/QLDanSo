@@ -29,5 +29,10 @@ namespace HTTTQLDanSo.Controllers
         {
             return View();
         }
+
+        public ActionResult EducationLevelComparisonTable()
+        {
+            return View();
+        }
     }
 }

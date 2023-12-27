@@ -145,19 +145,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href='@Url.Action("ContraceptiveAndMaternityMeasures", "DocumentGuide")'  class="nav-link">
+                                    <a href='@Url.Action("ContraceptiveAndMaternityMeasures", "DocumentGuide")' class="nav-link">
                                         <i class="far fa-file nav-icon"></i>
                                         <p>Bảng mã BPTT và thai sản</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href='@Url.Action("EthnicList", "DocumentGuide")'  class="nav-link">
+                                    <a href='@Url.Action("EthnicList", "DocumentGuide")' class="nav-link">
                                         <i class="far fa-file nav-icon"></i>
                                         <p>Danh mục dân tộc</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href='@Url.Action("EducationLevelComparisonTable", "DocumentGuide")' class="nav-link">
                                         <i class="far fa-file nav-icon"></i>
                                         <p>Chuyển đổi trình độ học vấn</p>
                                     </a>
@@ -175,21 +175,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="pages/charts/chartjs.html" class="nav-link">
+                                    <a href='@Url.Action("A0CVT", "ExportTemplateFile")' class="nav-link">
                                         <i class="far fa-file nav-icon"></i>
                                         <p>Phiếu A0/CTV</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/charts/flot.html" class="nav-link">
+                                    <a href='@Url.Action("P0CVT", "ExportTemplateFile")' class="nav-link">
                                         <i class="far fa-file nav-icon"></i>
                                         <p>Phiếu P0/CTV</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/charts/inline.html" class="nav-link">
+                                    <a href='@Url.Action("ReportCTVMouthly", "ExportTemplateFile")' class="nav-link">
                                         <i class="far fa-file nav-icon"></i>
-                                        <p>Báo cáo CTV</p>
+                                        <p>Báo cáo CTV Tháng</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href='@Url.Action("ReportCTVQuarterly", "ExportTemplateFile")' class="nav-link">
+                                        <i class="far fa-file nav-icon"></i>
+                                        <p>Báo cáo CTV Quý</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href='@Url.Action("ReportCTVAnnualy", "ExportTemplateFile")' class="nav-link">
+                                        <i class="far fa-file nav-icon"></i>
+                                        <p>Báo cáo CTV Năm</p>
                                     </a>
                                 </li>
                             </ul>

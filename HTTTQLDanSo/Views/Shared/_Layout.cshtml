@@ -95,8 +95,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-                        with font-awesome or any other icon font library -->
-                        <li class="nav-item menu-open">
+    with font-awesome or any other icon font library -->
+                        <li class="nav-item @((Request.Url.AbsolutePath.Contains("ExportTemplateFile") && Request.Url.AbsolutePath.Contains("AreaList") || Request.Url.AbsolutePath.Contains("Household")) ? "menu-is-opening menu-open" : "")">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
@@ -117,7 +117,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @(Request.Url.AbsolutePath.Contains("DocumentGuide") ? "menu-is-opening menu-open" : "")">
                             <a href="#" class="nav-link">
                                 <i class="#"></i>
                                 <p>
@@ -127,37 +127,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href='@Url.Action("A0", "DocumentGuide")' class="nav-link">
+                                    <a href='@Url.Action("A0", "DocumentGuide")' class="nav-link @(Request.Url.AbsolutePath.Contains("A0") && Request.Url.AbsolutePath.Contains("DocumentGuide") ? "active" : "")">
                                         <i class="far fa-file nav-icon"></i>
                                         <p>Ghi chép sổ A0</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href='@Url.Action("InformationReceipt", "DocumentGuide")' class="nav-link">
+                                    <a href='@Url.Action("InformationReceipt", "DocumentGuide")' class="nav-link @(Request.Url.AbsolutePath.Contains("InformationReceipt") && Request.Url.AbsolutePath.Contains("DocumentGuide") ? "active" : "")">
                                         <i class="far fa-file nav-icon"></i>
                                         <p>Phiếu thu tin F0</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href='@Url.Action("YearlyCompare", "DocumentGuide")' class="nav-link">
+                                    <a href='@Url.Action("YearlyCompare", "DocumentGuide")' class="nav-link @(Request.Url.AbsolutePath.Contains("YearlyCompare") && Request.Url.AbsolutePath.Contains("DocumentGuide") ? "active" : "")">
                                         <i class="far fa-file nav-icon"></i>
                                         <p>Đối chiếu năm</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href='@Url.Action("ContraceptiveAndMaternityMeasures", "DocumentGuide")' class="nav-link">
+                                    <a href='@Url.Action("ContraceptiveAndMaternityMeasures", "DocumentGuide")' class="nav-link @(Request.Url.AbsolutePath.Contains("ContraceptiveAndMaternityMeasures") && Request.Url.AbsolutePath.Contains("DocumentGuide") ? "active" : "")">
                                         <i class="far fa-file nav-icon"></i>
                                         <p>Bảng mã BPTT và thai sản</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href='@Url.Action("EthnicList", "DocumentGuide")' class="nav-link">
+                                    <a href='@Url.Action("EthnicList", "DocumentGuide")' class="nav-link @(Request.Url.AbsolutePath.Contains("EthnicList") && Request.Url.AbsolutePath.Contains("DocumentGuide") ? "active" : "")">
                                         <i class="far fa-file nav-icon"></i>
                                         <p>Danh mục dân tộc</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href='@Url.Action("EducationLevelComparisonTable", "DocumentGuide")' class="nav-link">
+                                    <a href='@Url.Action("EducationLevelComparisonTable", "DocumentGuide")' class="nav-link @(Request.Url.AbsolutePath.Contains("EducationLevelComparisonTable") && Request.Url.AbsolutePath.Contains("DocumentGuide") ? "active" : "")">
                                         <i class="far fa-file nav-icon"></i>
                                         <p>Chuyển đổi trình độ học vấn</p>
                                     </a>
@@ -165,8 +165,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </ul>
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item @((Request.Url.AbsolutePath.Contains("ExportTemplateFile") && !Request.Url.AbsolutePath.Contains("AreaList"))? "menu-is-opening menu-open" : "")">
                             <a href="#" class="nav-link">
+
                                 <i class="nav-icon fas fa-chart-pie"></i>
                                 <p>
                                     Biểu mẫu
@@ -175,31 +176,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href='@Url.Action("A0CVT", "ExportTemplateFile")' class="nav-link">
+                                    <a href='@Url.Action("A0CVT", "ExportTemplateFile")' class="nav-link @(Request.Url.AbsolutePath.Contains("A0CVT") && Request.Url.AbsolutePath.Contains("DocumentGuide") ? "active" : "")">
                                         <i class="far fa-file nav-icon"></i>
                                         <p>Phiếu A0/CTV</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href='@Url.Action("P0CVT", "ExportTemplateFile")' class="nav-link">
+                                    <a href='@Url.Action("P0CVT", "ExportTemplateFile")' class="nav-link @(Request.Url.AbsolutePath.Contains("P0CVT") && Request.Url.AbsolutePath.Contains("DocumentGuide") ? "active" : "")">
                                         <i class="far fa-file nav-icon"></i>
                                         <p>Phiếu P0/CTV</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href='@Url.Action("ReportCTVMouthly", "ExportTemplateFile")' class="nav-link">
+                                    <a href='@Url.Action("ReportCTVMouthly", "ExportTemplateFile")' class="nav-link @(Request.Url.AbsolutePath.Contains("ReportCTVMouthly") && Request.Url.AbsolutePath.Contains("DocumentGuide") ? "active" : "")">
                                         <i class="far fa-file nav-icon"></i>
                                         <p>Báo cáo CTV Tháng</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href='@Url.Action("ReportCTVQuarterly", "ExportTemplateFile")' class="nav-link">
+                                    <a href='@Url.Action("ReportCTVQuarterly", "ExportTemplateFile")' class="nav-link @(Request.Url.AbsolutePath.Contains("ReportCTVQuarterly") && Request.Url.AbsolutePath.Contains("DocumentGuide") ? "active" : "")">
                                         <i class="far fa-file nav-icon"></i>
                                         <p>Báo cáo CTV Quý</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href='@Url.Action("ReportCTVAnnualy", "ExportTemplateFile")' class="nav-link">
+                                    <a href='@Url.Action("ReportCTVAnnualy", "ExportTemplateFile")' class="nav-link @(Request.Url.AbsolutePath.Contains("ReportCTVAnnualy") && Request.Url.AbsolutePath.Contains("DocumentGuide") ? "active" : "")">
                                         <i class="far fa-file nav-icon"></i>
                                         <p>Báo cáo CTV Năm</p>
                                     </a>

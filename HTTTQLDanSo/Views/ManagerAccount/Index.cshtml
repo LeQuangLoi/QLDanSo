@@ -3,6 +3,14 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+@{
+    int pageSize = 20;
+    if (int.TryParse(System.Configuration.ConfigurationManager.AppSettings["pageSize"], out int size))
+    {
+        pageSize = size;
+    } ;
+    }
+
 @model PagedList.IPagedList<HTTTQLDanSo.Models.AccountViewModel>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
@@ -26,6 +34,9 @@
 <table class="table">
     <tr>
         <th>
+            STT
+        </th>
+        <th>
             @Html.ActionLink("Tên đầy đu", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
@@ -42,10 +53,15 @@
         </th>
         <th></th>
     </tr>
-
+    @{ var counter = 0;
+                    var currentPage = Model.PageNumber; }
     @foreach (var item in Model)
     {
+        counter++;
         <tr>
+            <td>
+                @(((currentPage - 1) * pageSize) + counter)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FullName)
             </td>

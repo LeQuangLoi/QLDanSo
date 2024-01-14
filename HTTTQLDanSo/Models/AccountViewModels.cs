@@ -18,8 +18,11 @@ namespace HTTTQLDanSo.Models
     public class SendCodeViewModel
     {
         public string SelectedProvider { get; set; }
+
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
+
         public string ReturnUrl { get; set; }
+
         public bool RememberMe { get; set; }
     }
 
@@ -31,6 +34,7 @@ namespace HTTTQLDanSo.Models
         [Required]
         [Display(Name = "Code")]
         public string Code { get; set; }
+
         public string ReturnUrl { get; set; }
 
         [Display(Name = "Remember this browser?")]
@@ -49,9 +53,8 @@ namespace HTTTQLDanSo.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "PhoneNumber")]
+        public string PhoneNumber { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -108,5 +111,35 @@ namespace HTTTQLDanSo.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+    }
+
+    public class AccountViewModel
+    {
+        public string FullName
+        {
+            get { return $"{FirstName} {LastName}"; }
+        }
+
+        public string Id { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public string UserName { get; set; }
+
+        public string RoleId { get; set; }
+
+        public string AllRoles { get; set; }
+
+        public string WorkerId { get; set; }
+
+        public string WorkName { get; set; }
+
+        public string RegionID { get; set; }
+
+        public string RegionName { get; set; }
     }
 }

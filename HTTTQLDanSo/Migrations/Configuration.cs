@@ -36,7 +36,7 @@
                     FirstName="THỤC",
                     WorkerId = 3,
                     LastName="NGUYỄN THỊ",
-                    UserName = "thucnguyenthi@demo.com",
+                    UserName = "946002401",
                     Email = "thucnguyenthi@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -47,7 +47,7 @@
                     FirstName="HIỆP",
                     WorkerId = 12,
                     LastName="VŨ THỊ",
-                    UserName = "vuthihiep@demo.com",
+                    UserName = "946002402",
                     Email = "vuthihiep@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -58,7 +58,7 @@
                     FirstName = "THỦY",
                     WorkerId = 1,
                     LastName = "NGUYỄN HỒNG",
-                    UserName = "nguyenhongthu@demo.com",
+                    UserName = "946002403",
                     Email = "nguyenhongthu@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -69,7 +69,7 @@
                     FirstName = "OANH",
                     WorkerId = 17,
                     LastName = "TRẦN THỊ KIỀU",
-                    UserName = "trandockieuoanh@demo.com",
+                    UserName = "946002404",
                     Email = "trandockieuoanh@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -80,7 +80,7 @@
                     FirstName = "THÔNG",
                     WorkerId = 11,
                     LastName = "BÙI THỊ",
-                    UserName = "buithithong@demo.com",
+                    UserName = "946002405",
                     Email = "buithithong@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -91,7 +91,7 @@
                     FirstName = "NAM",
                     WorkerId = 10,
                     LastName = "PHẠM THỊ",
-                    UserName = "phamthinam@demo.com",
+                    UserName = "946002406",
                     Email = "phamthinam@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -102,7 +102,7 @@
                     FirstName = "THỊNH",
                     WorkerId = 20,
                     LastName = "NGUYỄN THỊ",
-                    UserName = "nguyenthithinh@demo.com",
+                    UserName = "946002407",
                     Email = "nguyenthithinh@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -113,7 +113,7 @@
                     FirstName = "HÀ",
                     WorkerId = 21,
                     LastName = "NGUYỄN THỊ NGÂN",
-                    UserName = "nguyenthinganha@demo.com",
+                    UserName = "946002408",
                     Email = "nguyenthinganha@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -124,7 +124,7 @@
                     FirstName = "THÚY",
                     WorkerId = 15,
                     LastName = "TRẦN THỊ",
-                    UserName = "tranthithuy@demo.com",
+                    UserName = "946002409",
                     Email = "tranthithuy@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -135,7 +135,7 @@
                     FirstName = "NHŨN",
                     WorkerId = 9,
                     LastName = "NGUYỄN THỊ",
-                    UserName = "nguyenthinhu@demo.com",
+                    UserName = "946002410",
                     Email = "nguyenthinhu@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -146,7 +146,7 @@
                     FirstName = "HƯỜNG",
                     WorkerId = 19,
                     LastName = "LƯU THỊ",
-                    UserName = "luuthihuong@demo.com",
+                    UserName = "946002411",
                     Email = "luuthihuong@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -157,7 +157,7 @@
                     FirstName = "HIỀN",
                     WorkerId = 2,
                     LastName = "BÙI THỊ",
-                    UserName = "vuongthihien@demo.com",
+                    UserName = "946002412",
                     Email = "vuongthihien@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -168,7 +168,7 @@
                     FirstName = "LIÊN",
                     WorkerId = 7,
                     LastName = "TRỊNH KIM",
-                    UserName = "trinhkimlien@demo.com",
+                    UserName = "946002413",
                     Email = "trinhkimlien@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -179,7 +179,7 @@
                     FirstName = "THU",
                     WorkerId = 18,
                     LastName = "NGUYỄN THỊ SỬU",
-                    UserName = "nguyenthisuuthu@demo.com",
+                    UserName = "946002414",
                     Email = "nguyenthisuuthu@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -190,7 +190,7 @@
                     FirstName = "TUYẾT",
                     WorkerId = 5,
                     LastName = "ĐỖ THỊ",
-                    UserName = "dothituyet@demo.com",
+                    UserName = "946002415",
                     Email = "dothituyet@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -201,7 +201,7 @@
                     FirstName = "TÍNH",
                     WorkerId = 16,
                     LastName = "TRẦN THỊ",
-                    UserName = "tranthitinh@demo.com",
+                    UserName = "946002416",
                     Email = "tranthitinh@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -212,7 +212,7 @@
                     FirstName = "HOA",
                     WorkerId = 6,
                     LastName = "HÀ THỊ",
-                    UserName = "hathihoa@demo.com",
+                    UserName = "946002417",
                     Email = "hathihoa@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -223,7 +223,7 @@
                     FirstName = "OANH",
                     WorkerId= 14,
                     LastName = "TẠ THỊ KIM",
-                    UserName = "tathikimoanh@demo.com",
+                    UserName = "946002418",
                     Email = "tathikimoanh@demo.com",
                     EmailConfirmed = true,
                     RegionID = "0100300100",
@@ -234,7 +234,7 @@
                     FirstName = "THỊNH",
                     WorkerId = 4,
                     LastName = "ĐỖ THỊ",
-                    UserName = "THINH",
+                    UserName = "946002419",
                     Email = "dothithinh@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -245,7 +245,7 @@
                     FirstName = "THÁI",
                     WorkerId = 8,
                     LastName = "HÀ THỊ",
-                    UserName = "hathithai@demo.com",
+                    UserName = "946002420",
                     Email = "hathithai@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
@@ -256,14 +256,27 @@
                     FirstName = "LINH",
                     WorkerId = 13,
                     LastName = "TRAN THI THUY",
-                    UserName = "tranthithuylinh@demo.com",
+                    UserName = "946002421",
                     Email = "tranthithuylinh@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
                     PhoneNumber = "946002421"
                 }
             };
-
+            var adminUsers = new List<ApplicationUser>
+            {
+                 new ApplicationUser()
+                {
+                    FirstName = "Dai",
+                    WorkerId = null,
+                    LastName = "Duong",
+                    UserName = "999999999",
+                    Email = "daiduong@gmail.com",
+                    EmailConfirmed = false,
+                    RegionID=string.Empty,
+                    PhoneNumber = "999999999"
+                }
+            };
             if (!roleManager.Roles.Any())
             {
                 roleManager.Create(new IdentityRole { Name = "Admin" });
@@ -272,17 +285,36 @@
 
             foreach (var user in applicationUsers)
             {
-                if (manager.Users.Count(x => x.Email == user.Email) == 0)
+                if (manager.Users.Count(x => x.PhoneNumber == user.PhoneNumber) == 0)
                 {
                     var result = manager.Create(user, "Abc@123");
                     if (result.Succeeded)
                     {
-                        var adminUser = manager.FindByEmail(user.Email);
-
-                        manager.AddToRoles(adminUser.Id, new string[] { "CTV" });
+                        var ctvUser = manager.Users.FirstOrDefault(x => x.PhoneNumber == user.PhoneNumber);
+                        if (ctvUser != null)
+                        {
+                            manager.AddToRoles(ctvUser.Id, new string[] { "CTV" });
+                        }
                     }
                 }
             }
+
+            foreach (var user in adminUsers)
+            {
+                if (manager.Users.Count(x => x.PhoneNumber == user.PhoneNumber) == 0)
+                {
+                    var result = manager.Create(user, "Abc@999");
+                    if (result.Succeeded)
+                    {
+                        var adminUser = manager.Users.FirstOrDefault(x => x.PhoneNumber == user.PhoneNumber);
+                        if (adminUser != null)
+                        {
+                            manager.AddToRoles(adminUser.Id, new string[] { "Admin" });
+                        }
+                    }
+                }
+            }
+
             context.SaveChanges();
         }
     }

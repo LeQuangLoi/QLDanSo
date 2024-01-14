@@ -16,7 +16,7 @@ namespace HTTTQLDanSo.Models
 
         public string RegionID { set; get; }
 
-        public int WorkerId { set; get; }
+        public int? WorkerId { set; get; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

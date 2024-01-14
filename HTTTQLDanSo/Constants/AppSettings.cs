@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace HTTTQLDanSo.Constants
+﻿namespace HTTTQLDanSo.Constants
 {
     public static class AppSettings
     {

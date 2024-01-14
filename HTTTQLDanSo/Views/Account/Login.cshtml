@@ -38,7 +38,7 @@
     <div class="container login-container">
         <div class="row">
             <div class="col-md-4 offset-md-4">
-                <div class="login-form"> 
+                <div class="login-form">
                     <img src="~/Images/logo.svg" alt="Logo" class="logo">
                     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                     {
@@ -46,12 +46,11 @@
                         <h2 class="text-center">Log in</h2>
                         <hr />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group"> 
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email đăng nhập" })
-                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-
-                </div>
-                        <div class="form-group"> 
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Tài khoản đăng nhập" })
+                            @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Mật khẩu" })
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
@@ -73,7 +72,7 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.js"></script>
 </body>
 </html>

@@ -8,8 +8,8 @@
     if (int.TryParse(System.Configuration.ConfigurationManager.AppSettings["pageSize"], out int size))
     {
         pageSize = size;
-    } ;
-    }
+    };
+}
 
 @model PagedList.IPagedList<HTTTQLDanSo.Models.AccountViewModel>
 @using PagedList.Mvc;
@@ -53,8 +53,11 @@
         </th>
         <th></th>
     </tr>
-    @{ var counter = 0;
-                    var currentPage = Model.PageNumber; }
+    @{
+        var counter = 0;
+        var currentPage = Model.PageNumber;
+    }
+
     @foreach (var item in Model)
     {
         counter++;

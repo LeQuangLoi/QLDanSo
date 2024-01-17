@@ -68,6 +68,26 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys
             }
         }
 
+        public async Task<IEnumerable<Region>> GetAllRegionsAsync()
+        {
+            const string query = @"
+            SELECT [Region_ID]
+                    ,[Region_Name]
+                    ,[Parent]
+                    ,[Area]
+                    ,[Levels]
+                    ,[Active]
+                    ,[Selected]
+                    ,[RegionID_Old]
+                    ,[ID]
+                FROM [dbo].[Region]";
+
+            using (var connection = this.CreateConnection())
+            {
+                return await connection.QueryAsync<Region>(query);
+            }
+        }
+
         public async Task<IEnumerable<Region>> GetRegionsByParrentIdAsync(string parrentId)
         {
             const string query = @"

@@ -1,4 +1,5 @@
 ﻿using HTTTQLDanSo.Constants;
+using HTTTQLDanSo.Models;
 using HTTTQLDanSo.Services;
 using PagedList;
 using System.Linq;
@@ -62,6 +63,58 @@ namespace HTTTQLDanSo.Controllers
 
             int pageNumber = (page ?? 1);
             return View(accounts.ToPagedList(pageNumber, _pageSize));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetRegions(string provinceId)
+        {
+            var accounts = await _iAccountService.GetRegionsByParrentIdAsync(provinceId);
+            var selectItems = new SelectList(accounts, "Region_ID", "Region_Name"); ;
+            return Json(selectItems, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetAddresss(string regionId)
+        {
+            var accounts = await _iAccountService.GetAddressByRegionIdAsync(regionId);
+            var selectItems = new SelectList(accounts, "FieldWorker_ID", "Full_Address"); ;
+            return Json(selectItems, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Create()
+        {
+            var account = await _iAccountService.GetRegisterAccountViewModelAsync();
+
+            return View(account);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create([Bind(Exclude = "Provinces,Districts")] RegisterAccountViewModel registerAccountViewModel)
+        {
+            var account = await _iAccountService.GetRegisterAccountViewModelAsync();
+
+            var modelState = _iAccountService.ValidateRegisterAccountAsync(registerAccountViewModel);
+            if (!modelState.IsValid || !ModelState.IsValid)
+            {
+                account.PhoneNumber = registerAccountViewModel.PhoneNumber;
+                account.FirstName = registerAccountViewModel.FirstName;
+                account.LastName = registerAccountViewModel.LastName;
+                foreach (var key in modelState.Keys)
+                {
+                    foreach (var error in modelState[key].Errors)
+                    {
+                        ModelState.AddModelError(key, error.ErrorMessage);
+                    }
+                }
+
+                // Return the view with the modified ModelState for error display
+                return View(account);
+            }
+
+            await _iAccountService.RegisterAccountAsync(registerAccountViewModel);
+            ViewData["SuccessMsg"] = "Tạo mới account thành công!";
+            return View("Create", account);
         }
     }
 }

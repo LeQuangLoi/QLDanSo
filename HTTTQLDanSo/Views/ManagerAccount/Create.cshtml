@@ -1,0 +1,183 @@
+﻿@model HTTTQLDanSo.Models.RegisterAccountViewModel
+@{
+    Layout = null;
+    ViewBag.Title = "Register";
+}
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+<h2>Create</h2>
+@if (ViewData["SuccessMsg"] != null)
+{
+    <div class="alert alert-success text-md-center" role="alert">
+        <strong>@ViewData["SuccessMsg"].ToString() </strong>
+    </div>
+}
+@if (ViewData["ErrorMsg"] != null)
+{
+    <div class="alert alert-danger text-md-center" role="alert">
+        <strong>@ViewData["ErrorMsg"].ToString() </strong>
+    </div>
+}
+<div class="container register-container">
+    @using (Html.BeginForm("Create", "ManagerAccount", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        <div class="container">
+            <h2>Register Account</h2>
+
+            <div class="form-group">
+                <div class="col-sm-2 control-label">
+                    Họ
+                </div>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">
+                    Tên
+                </div>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">
+                    Số điện thoại
+                </div>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">
+                    Quyền
+                </div>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.RoleId, Model.Roles, "Chọn quyền", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.RoleId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">
+                    Tỉnh thành
+                </div>
+                <div class="col-sm-10">
+                    @Html.DropDownList("Provinces", new SelectList(Model.Provinces, "Value", "Text"), new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-2 control-label">
+                    Quận huyện
+                </div>
+                <div class="col-sm-10">
+                    @Html.DropDownList("Districts", new SelectList(Model.Districts, "Value", "Text"), new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">
+                    Phường xã
+                </div>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.RegionID, Model.Regions, "Chọn xã phường", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">
+                    Địa chỉ
+                </div>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.WorkerId, Model.Workers, "Chọn địa chỉ", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.WorkerId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">Tạo mới</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+
+    $('#Provinces').removeData("val-required");
+    $('#Provinces').removeData("unobtrusiveValidation");
+
+    $('#Districts').removeData("val-required");
+    $('#Districts').removeData("unobtrusiveValidation");
+
+    $(document).ready(function () {
+        $("#Provinces").change(function () {
+            var selectedProvinceId = $(this).val();
+            $.ajax({
+                url: '/ManagerAccount/GetRegions', // Replace with the actual endpoint to retrieve regions based on selected province
+                type: 'GET',
+                datatype: 'json',
+                data: { provinceId: selectedProvinceId },
+                success: function (data) {
+                    var regionsDropdown = $('#Districts');
+                    regionsDropdown.empty();
+                    $.each(data, function (i, item) {
+                        regionsDropdown.append($('<option>', {
+                            value: item.Value,
+                            text: item.Text
+                        }));
+                    });
+                }
+            });
+        });
+
+        $("#Districts").change(function () {
+            var selectedProvinceId = $(this).val();
+            $.ajax({
+                url: '/ManagerAccount/GetRegions', // Replace with the actual endpoint to retrieve regions based on selected province
+                type: 'GET',
+                datatype: 'json',
+                data: { provinceId: selectedProvinceId },
+                success: function (data) {
+                    var regionsDropdown = $('#RegionID');
+                    regionsDropdown.empty();
+                    $.each(data, function (i, item) {
+                        regionsDropdown.append($('<option>', {
+                            value: item.Value,
+                            text: item.Text
+                        }));
+                    });
+                }
+            });
+        });
+
+        $("#RegionID").change(function () {
+            var selectedRegionId = $(this).val();
+            $.ajax({
+                url: '/ManagerAccount/GetAddresss', // Replace with the actual endpoint to retrieve regions based on selected province
+                type: 'GET',
+                datatype: 'json',
+                data: { regionId: selectedRegionId },
+                success: function (data) {
+                    var regionsDropdown = $('#WorkerId');
+                    regionsDropdown.empty();
+                    $.each(data, function (i, item) {
+                        regionsDropdown.append($('<option>', {
+                            value: item.Value,
+                            text: item.Text
+                        }));
+                    });
+                }
+            });
+        });
+    });
+</script>

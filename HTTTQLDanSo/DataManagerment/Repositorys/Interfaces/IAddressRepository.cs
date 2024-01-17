@@ -8,6 +8,6 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys.Interfaces
     {
         Task<IEnumerable<Address>> GetAddressesByWorkerIdAsync(int wokerId);
 
-        Task<IEnumerable<Address>> GetAddressesByRegionIdAsync(string RegionId);
+        Task<IEnumerable<Address>> GetAddressesByRegionIdAsync(string regionId);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.ModelBinding;
 
 namespace HTTTQLDanSo.Models
 {
@@ -141,5 +142,38 @@ namespace HTTTQLDanSo.Models
         public string RegionID { get; set; }
 
         public string RegionName { get; set; }
+    }
+
+    public class RegisterAccountViewModel
+    {
+        [Required(ErrorMessage = "Vui lòng nhập first name.")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập last name.")]
+        public string LastName { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập số điện thoại.")]
+        public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập quyền.")]
+        public string RoleId { get; set; } // It from a list select option
+
+        public List<System.Web.Mvc.SelectListItem> Roles { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ.")]
+        public string WorkerId { get; set; }// It from a list select option
+
+        public List<System.Web.Mvc.SelectListItem> Workers { get; set; }
+
+        public string RegionID { get; set; }
+
+        [BindNever]
+        public List<System.Web.Mvc.SelectListItem> Provinces { get; set; } = new List<System.Web.Mvc.SelectListItem>();
+
+        [BindNever]
+        public List<System.Web.Mvc.SelectListItem> Districts { get; set; } = new List<System.Web.Mvc.SelectListItem>();
+
+        public List<System.Web.Mvc.SelectListItem> Regions { get; set; }
+
     }
 }

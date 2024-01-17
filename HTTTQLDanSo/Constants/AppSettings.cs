@@ -4,5 +4,6 @@
     {
         public const string PrimaryConnection = "PrimaryConnection";
         public const string PageSize = "PageSize";
+        public const string DefaultPassword = "DefaultPassword";
     }
 }

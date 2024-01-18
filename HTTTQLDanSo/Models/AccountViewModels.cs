@@ -118,7 +118,7 @@ namespace HTTTQLDanSo.Models
     {
         public string FullName
         {
-            get { return $"{FirstName} {LastName}"; }
+            get { return $"{LastName} {FirstName}"; }
         }
 
         public string Id { get; set; }
@@ -144,6 +144,11 @@ namespace HTTTQLDanSo.Models
         public string RegionName { get; set; }
     }
 
+    public class EditAccountViewModel : RegisterAccountViewModel
+    {
+        public string Id { get; set; }
+    }
+
     public class RegisterAccountViewModel
     {
         [Required(ErrorMessage = "Vui lòng nhập first name.")]
@@ -156,9 +161,9 @@ namespace HTTTQLDanSo.Models
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập quyền.")]
-        public string RoleId { get; set; } // It from a list select option
+        public IList<string> SelectedRoleNames { get; set; }
 
-        public List<System.Web.Mvc.SelectListItem> Roles { get; set; }
+        public IList<RoleViewModel> Roles { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập địa chỉ.")]
         public string WorkerId { get; set; }// It from a list select option
@@ -167,6 +172,10 @@ namespace HTTTQLDanSo.Models
 
         public string RegionID { get; set; }
 
+        public string ProvinId { set; get; }
+
+        public string DistrictId { set; get; }
+
         [BindNever]
         public List<System.Web.Mvc.SelectListItem> Provinces { get; set; } = new List<System.Web.Mvc.SelectListItem>();
 
@@ -174,6 +183,5 @@ namespace HTTTQLDanSo.Models
         public List<System.Web.Mvc.SelectListItem> Districts { get; set; } = new List<System.Web.Mvc.SelectListItem>();
 
         public List<System.Web.Mvc.SelectListItem> Regions { get; set; }
-
     }
 }

@@ -33,7 +33,9 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys
         public async Task<IEnumerable<Address>> GetAddressesByRegionIdAsync(string regionId)
         {
             const string query = @"
-            SELECT  Address_ID
+            SELECT
+                FieldWorker_ID
+                ,Address_ID
                 , Full_Address
                 , Notes
                 , FieldWorker_Name

@@ -1,19 +1,9 @@
-﻿@model HTTTQLDanSo.Models.RegisterAccountViewModel
+﻿@model HTTTQLDanSo.Models.EditAccountViewModel
 @{
-    Layout = null;
-    ViewBag.Title = "Register";
-}
-
-@{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<style>
-    .hidden {
-        display: none;
-    }
-</style>
-<h2>Tạo mới tài khoản</h2>
+
 <div class="container register-container">
     @if (ViewData["SuccessMsg"] != null)
     {
@@ -27,10 +17,11 @@
             <strong>@ViewData["ErrorMsg"].ToString() </strong>
         </div>
     }
-    @using (Html.BeginForm("Create", "ManagerAccount", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm("Detail", "ManagerAccount", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
+        @Html.HiddenFor(m => m.Id);
         <div class="container">
-            <h2>Tạo tài khoản</h2>
+            <h2>Cập nhật tài khoản</h2>
 
             <div class="form-group">
                 <div class="col-sm-2 control-label">
@@ -75,7 +66,6 @@
                                 </label>
                             </div>
                         }
-
                     @Html.ValidationMessageFor(m => m.SelectedRoleNames, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -115,7 +105,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">Tạo mới</button>
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
                 </div>
             </div>
         </div>
@@ -123,6 +113,13 @@
 </div>
 
 <script>
+
+    $('#Provinces').removeData("val-required");
+    $('#Provinces').removeData("unobtrusiveValidation");
+
+    $('#Districts').removeData("val-required");
+    $('#Districts').removeData("unobtrusiveValidation");
+
     $(document).ready(function () {
         $("#ProvinId").change(function () {
             var selectedProvinceId = $(this).val();

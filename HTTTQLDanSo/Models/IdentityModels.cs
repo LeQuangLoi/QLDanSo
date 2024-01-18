@@ -14,6 +14,12 @@ namespace HTTTQLDanSo.Models
 
         public string LastName { set; get; }
 
+        public string ProvinId { set; get; }
+
+        public string DistrictId { set; get; }
+
+        public string WardsID { set; get; }
+
         public string RegionID { set; get; }
 
         public int? WorkerId { set; get; }

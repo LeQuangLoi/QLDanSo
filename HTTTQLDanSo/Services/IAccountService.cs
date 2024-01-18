@@ -1,5 +1,6 @@
 ﻿using HTTTQLDanSo.DataManagerment.DataModel;
 using HTTTQLDanSo.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -18,8 +19,14 @@ namespace HTTTQLDanSo.Services
 
         Task<RegisterAccountViewModel> GetRegisterAccountViewModelAsync();
 
-        ModelStateDictionary ValidateRegisterAccountAsync(RegisterAccountViewModel registerAccountViewModel);
+        ModelStateDictionary ValidateRegisterAccountAsync(RegisterAccountViewModel registerAccountViewModel, ModelStateDictionary modelState);
 
-        Task<RegisterAccountViewModel> RegisterAccountAsync(RegisterAccountViewModel registerAccountViewModel);
+        Task<bool> DeleteUserByUserIdAsync(string userId);
+
+        Task<Tuple<bool, RegisterAccountViewModel>> RegisterAccountAsync(RegisterAccountViewModel registerAccountViewModel);
+
+        Task<Tuple<ModelStateDictionary, EditAccountViewModel>> UpdateAccountAccountByIdAsync(EditAccountViewModel editAccountViewModel, ModelStateDictionary modelState);
+
+        Task<EditAccountViewModel> GetAccountByIdAsync(string id);
     }
 }

@@ -2460,6 +2460,7 @@
     <Content Include="Views\ManagerAccount\Index.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\ManagerAccount\Create.cshtml" />
+    <Content Include="Views\ManagerAccount\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

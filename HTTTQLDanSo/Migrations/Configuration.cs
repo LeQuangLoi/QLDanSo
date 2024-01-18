@@ -35,17 +35,23 @@
                 {
                     FirstName="THỤC",
                     WorkerId = 3,
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     LastName="NGUYỄN THỊ",
                     UserName = "946002401",
                     Email = "thucnguyenthi@demo.com",
                     EmailConfirmed = false,
                     RegionID = "0100300100",
                     PhoneNumber = "946002401"
-                }
-                , new ApplicationUser()
+                },
+                new ApplicationUser()
                 {
                     FirstName="HIỆP",
                     WorkerId = 12,
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     LastName="VŨ THỊ",
                     UserName = "946002402",
                     Email = "vuthihiep@demo.com",
@@ -53,10 +59,13 @@
                     RegionID = "0100300100",
                     PhoneNumber = "946002402"
                 },
-                 new ApplicationUser()
+                new ApplicationUser()
                 {
                     FirstName = "THỦY",
                     WorkerId = 1,
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     LastName = "NGUYỄN HỒNG",
                     UserName = "946002403",
                     Email = "nguyenhongthu@demo.com",
@@ -68,6 +77,9 @@
                 {
                     FirstName = "OANH",
                     WorkerId = 17,
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     LastName = "TRẦN THỊ KIỀU",
                     UserName = "946002404",
                     Email = "trandockieuoanh@demo.com",
@@ -79,6 +91,9 @@
                 {
                     FirstName = "THÔNG",
                     WorkerId = 11,
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     LastName = "BÙI THỊ",
                     UserName = "946002405",
                     Email = "buithithong@demo.com",
@@ -90,6 +105,9 @@
                 {
                     FirstName = "NAM",
                     WorkerId = 10,
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     LastName = "PHẠM THỊ",
                     UserName = "946002406",
                     Email = "phamthinam@demo.com",
@@ -101,6 +119,9 @@
                 {
                     FirstName = "THỊNH",
                     WorkerId = 20,
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     LastName = "NGUYỄN THỊ",
                     UserName = "946002407",
                     Email = "nguyenthithinh@demo.com",
@@ -112,6 +133,9 @@
                 {
                     FirstName = "HÀ",
                     WorkerId = 21,
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     LastName = "NGUYỄN THỊ NGÂN",
                     UserName = "946002408",
                     Email = "nguyenthinganha@demo.com",
@@ -123,6 +147,9 @@
                 {
                     FirstName = "THÚY",
                     WorkerId = 15,
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     LastName = "TRẦN THỊ",
                     UserName = "946002409",
                     Email = "tranthithuy@demo.com",
@@ -134,6 +161,9 @@
                 {
                     FirstName = "NHŨN",
                     WorkerId = 9,
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     LastName = "NGUYỄN THỊ",
                     UserName = "946002410",
                     Email = "nguyenthinhu@demo.com",
@@ -145,6 +175,9 @@
                 {
                     FirstName = "HƯỜNG",
                     WorkerId = 19,
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     LastName = "LƯU THỊ",
                     UserName = "946002411",
                     Email = "luuthihuong@demo.com",
@@ -156,6 +189,9 @@
                 {
                     FirstName = "HIỀN",
                     WorkerId = 2,
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     LastName = "BÙI THỊ",
                     UserName = "946002412",
                     Email = "vuongthihien@demo.com",
@@ -167,6 +203,9 @@
                 {
                     FirstName = "LIÊN",
                     WorkerId = 7,
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     LastName = "TRỊNH KIM",
                     UserName = "946002413",
                     Email = "trinhkimlien@demo.com",
@@ -178,6 +217,9 @@
                 {
                     FirstName = "THU",
                     WorkerId = 18,
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     LastName = "NGUYỄN THỊ SỬU",
                     UserName = "946002414",
                     Email = "nguyenthisuuthu@demo.com",
@@ -189,6 +231,9 @@
                 {
                     FirstName = "TUYẾT",
                     WorkerId = 5,
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     LastName = "ĐỖ THỊ",
                     UserName = "946002415",
                     Email = "dothituyet@demo.com",
@@ -200,6 +245,9 @@
                 {
                     FirstName = "TÍNH",
                     WorkerId = 16,
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     LastName = "TRẦN THỊ",
                     UserName = "946002416",
                     Email = "tranthitinh@demo.com",
@@ -211,6 +259,9 @@
                 {
                     FirstName = "HOA",
                     WorkerId = 6,
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     LastName = "HÀ THỊ",
                     UserName = "946002417",
                     Email = "hathihoa@demo.com",
@@ -222,6 +273,9 @@
                 {
                     FirstName = "OANH",
                     WorkerId= 14,
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     LastName = "TẠ THỊ KIM",
                     UserName = "946002418",
                     Email = "tathikimoanh@demo.com",
@@ -232,6 +286,9 @@
                 new ApplicationUser()
                 {
                     FirstName = "THỊNH",
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     WorkerId = 4,
                     LastName = "ĐỖ THỊ",
                     UserName = "946002419",
@@ -243,6 +300,9 @@
                 new ApplicationUser()
                 {
                     FirstName = "THÁI",
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     WorkerId = 8,
                     LastName = "HÀ THỊ",
                     UserName = "946002420",
@@ -254,6 +314,9 @@
                 new ApplicationUser()
                 {
                     FirstName = "LINH",
+                    ProvinId="0100000000",
+                    DistrictId="0100000000",
+                    WardsID="0100300000",
                     WorkerId = 13,
                     LastName = "TRAN THI THUY",
                     UserName = "946002421",
@@ -265,7 +328,7 @@
             };
             var adminUsers = new List<ApplicationUser>
             {
-                 new ApplicationUser()
+                new ApplicationUser()
                 {
                     FirstName = "Dai",
                     WorkerId = null,

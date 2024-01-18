@@ -2,7 +2,9 @@
 using HTTTQLDanSo.Models;
 using HTTTQLDanSo.Services;
 using PagedList;
+using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -89,31 +91,65 @@ namespace HTTTQLDanSo.Controllers
             return View(account);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> Detail(string id)
+        {
+            var account = await _iAccountService.GetAccountByIdAsync(id);
+
+            return View(account);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Detail(EditAccountViewModel editAccountViewModel)
+        {
+            ViewData["ErrorMsg"] = null;
+            ViewData["SuccessMsg"] = null;
+            var (modelState, account) = await _iAccountService.UpdateAccountAccountByIdAsync(editAccountViewModel, ModelState);
+            if (!modelState.IsValid)
+            {
+                account.PhoneNumber = editAccountViewModel.PhoneNumber;
+                account.FirstName = editAccountViewModel.FirstName;
+                account.LastName = editAccountViewModel.LastName;
+                ViewData["ErrorMsg"] = "Cập nhật account thất bại!";
+            }
+            else
+            {
+                ViewData["SuccessMsg"] = "Cập nhật account thành công!";
+            }
+
+            return View("Detail", account);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Delete(string userId)
+        {
+            try
+            {
+                await _iAccountService.DeleteUserByUserIdAsync(userId);
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, $"An error occurred while deleting the user: {ex.Message}");
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult> Create([Bind(Exclude = "Provinces,Districts")] RegisterAccountViewModel registerAccountViewModel)
         {
-            var account = await _iAccountService.GetRegisterAccountViewModelAsync();
-
-            var modelState = _iAccountService.ValidateRegisterAccountAsync(registerAccountViewModel);
+            ViewData["ErrorMsg"] = null;
+            ViewData["SuccessMsg"] = null;
+            var modelState = _iAccountService.ValidateRegisterAccountAsync(registerAccountViewModel, ModelState);
             if (!modelState.IsValid || !ModelState.IsValid)
             {
-                account.PhoneNumber = registerAccountViewModel.PhoneNumber;
-                account.FirstName = registerAccountViewModel.FirstName;
-                account.LastName = registerAccountViewModel.LastName;
-                foreach (var key in modelState.Keys)
-                {
-                    foreach (var error in modelState[key].Errors)
-                    {
-                        ModelState.AddModelError(key, error.ErrorMessage);
-                    }
-                }
-
-                // Return the view with the modified ModelState for error display
-                return View(account);
+                ViewData["ErrorMsg"] = "Tạo mới account thất bại!";
+            }
+            var (success, account) = await _iAccountService.RegisterAccountAsync(registerAccountViewModel);
+            if (success)
+            {
+                ViewData["SuccessMsg"] = "Tạo mới account thành công!";
             }
 
-            await _iAccountService.RegisterAccountAsync(registerAccountViewModel);
-            ViewData["SuccessMsg"] = "Tạo mới account thành công!";
             return View("Create", account);
         }
     }

@@ -81,9 +81,8 @@
                 @Html.DisplayFor(modelItem => item.AllRoles)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Edit", "Detail", new { id = item.Id }) |
+                <button onclick="deleteUser('@item.Id')">Delete</button>
             </td>
         </tr>
     }
@@ -93,3 +92,23 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+<script>
+    function deleteUser(userId) {
+        $.ajax({
+            url: '/ManagerAccount/Delete/',
+            type: 'Get', datatype: 'json',
+            data: { userId: userId },
+            success: function (result) {
+                // Handle the success result, e.g., update UI or perform additional actions
+                window.location.reload(); // Example: reload the page
+            },
+            error: function (xhr, status, error) {
+                // Handle the error, e.g., display an error message
+                console.error('Failed to delete user:', error);
+            }
+        });
+    }
+
+
+</script>

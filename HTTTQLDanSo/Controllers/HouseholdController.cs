@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace HTTTQLDanSo.Controllers
 {
+    [Authorize(Roles = "CTV")]
     public class HouseholdController : Controller
     {
         private readonly IHouseHoldService _houseHoldService;

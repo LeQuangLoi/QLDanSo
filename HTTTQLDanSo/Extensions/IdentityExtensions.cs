@@ -21,6 +21,21 @@ namespace HTTTQLDanSo.Extensions
             return null;
         }
 
+        public static string GetUserId(this IIdentity identity)
+        {
+            if (identity == null)
+            {
+                throw new ArgumentNullException("identity");
+            }
+            var ci = identity as ClaimsIdentity;
+            if (ci != null)
+            {
+                var list = ci.Claims;
+                return ci.FindFirstValue("Id");
+            }
+            return null;
+        }
+
         public static string GetFullName(this IIdentity identity)
         {
             if (identity == null)

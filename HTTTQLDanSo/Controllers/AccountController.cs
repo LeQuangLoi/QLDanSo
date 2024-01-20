@@ -82,7 +82,7 @@ namespace HTTTQLDanSo.Controllers
             {
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 var userRole = UserManager.GetRoles(user.Id);
-                if (userRole.Any(x=> x.Equals("Admin")))
+                if (userRole.Any(x => x.Equals("Admin")))
                 {
                     return RedirectToAction("Index", "ManagerAccount"); // Redirect to ManagerController's Index action
                 }
@@ -96,24 +96,6 @@ namespace HTTTQLDanSo.Controllers
                 ModelState.AddModelError("", "Invalid login attempt.");
                 return View(model);
             }
-            //var result = await SignInManager.PasswordSignInAsync(model.PhoneNumber, model.Password, model.RememberMe, shouldLockout: false);
-
-            //switch (result)
-            //{
-            //    case SignInStatus.Success:
-            //        return RedirectToLocal(returnUrl);
-
-            //    case SignInStatus.LockedOut:
-            //        return View("Lockout");
-
-            //    case SignInStatus.RequiresVerification:
-            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-
-            //    case SignInStatus.Failure:
-            //    default:
-            //        ModelState.AddModelError("", "Invalid login attempt.");
-            //        return View(model);
-            //}
         }
 
         //
@@ -258,10 +240,21 @@ namespace HTTTQLDanSo.Controllers
 
         //
         // GET: /Account/ResetPassword
-        [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        [HttpGet]
+        public ActionResult ResetPassword(string phoneNumber)
         {
-            return code == null ? View("Error") : View();
+            var user = SignInManager.UserManager.Users.FirstOrDefault(x => x.PhoneNumber == phoneNumber);
+            if (user == null)
+            {
+                return View();
+            }
+
+            var model = new ResetPasswordViewModel
+            {
+                PhoneNumber = phoneNumber
+            };
+
+            return View(model);
         }
 
         //
@@ -269,23 +262,28 @@ namespace HTTTQLDanSo.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        public ActionResult ResetPassword(ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = SignInManager.UserManager.Users.FirstOrDefault(x => x.PhoneNumber == model.PhoneNumber);
+
             if (user == null)
             {
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+
+            SignInManager.UserManager.RemovePassword(user.Id);
+
+            var result = SignInManager.UserManager.AddPassword(user.Id, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
+
             AddErrors(result);
             return View();
         }

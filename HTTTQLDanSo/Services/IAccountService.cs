@@ -25,8 +25,10 @@ namespace HTTTQLDanSo.Services
 
         Task<Tuple<bool, RegisterAccountViewModel>> RegisterAccountAsync(RegisterAccountViewModel registerAccountViewModel);
 
+        ApplicationUser GetUserByPhoneNumber(string phoneNumber);
+
         Task<Tuple<ModelStateDictionary, EditAccountViewModel>> UpdateAccountAccountByIdAsync(EditAccountViewModel editAccountViewModel, ModelStateDictionary modelState);
 
-        Task<EditAccountViewModel> GetAccountByIdAsync(string id);
+        Task<AccountViewModel> GetAccountByIdAsync(string id);
     }
 }

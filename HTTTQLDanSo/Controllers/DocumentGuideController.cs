@@ -2,6 +2,7 @@
 
 namespace HTTTQLDanSo.Controllers
 {
+    [Authorize(Roles = "CTV")]
     public class DocumentGuideController : Controller
     {
         // GET: DocumentGuide

@@ -1,12 +1,25 @@
-﻿using System.Web.Mvc;
+﻿using HTTTQLDanSo.Extensions;
+using HTTTQLDanSo.Services;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace HTTTQLDanSo.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        private readonly IAccountService _iAccountService;
+
+        public HomeController(IAccountService iAccountService)
         {
-            return View();
+            _iAccountService = iAccountService;
+        }
+
+        public async Task<ActionResult> Index()
+        {
+            var userId = IdentityExtensions.GetUserId(HttpContext.User.Identity);
+            var account = await _iAccountService.GetAccountByIdAsync(userId);
+
+            return View(account);
         }
 
         public ActionResult About()

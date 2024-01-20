@@ -3,6 +3,7 @@ using System.Web.Mvc;
 
 namespace HTTTQLDanSo.Controllers
 {
+    [Authorize(Roles = "CTV")]
     public class ExportTemplateFileController : Controller
     {
         // GET: ExportTemplateFile

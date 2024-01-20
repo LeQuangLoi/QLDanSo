@@ -45,6 +45,39 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys
             }
         }
 
+        public async Task<AccountViewModel> GetAllAccountsByIdAsync(string id)
+        {
+            const string query = @"
+                  SELECT
+                    u.Id,
+                    u.FirstName,
+                    u.LastName,
+					pr.Region_Name as ProvinName,
+					di.Region_ID as DistrictId,
+					di.Region_Name as DistrictName,
+					a.Address_Name,
+					a.Full_Address,
+                    u.WorkerId,
+                    a.Address_Name AS WorkName,
+                    u.RegionID,
+                    r.Region_Name AS RegionName
+                FROM
+                    AspNetUsers u
+                JOIN
+                    Address a ON u.WorkerId= a.FieldWorker_ID
+                JOIN
+                    Region r ON u.RegionID= r.Region_ID
+				LEFT JOIN Region di on u.DistrictId=di.Region_ID
+				LEFT JOIN Region pr on u.ProvinId=pr.Region_ID
+                WHERE u.Id = @id";
+
+            var parameters = new { id = $"{id}" };
+            using (var connection = this.CreateConnection())
+            {
+                return await connection.QueryFirstOrDefaultAsync<AccountViewModel>(query, parameters);
+            }
+        }
+
         public async Task<IEnumerable<AccountViewModel>> GetAllAccountsByNameAsync(string name)
         {
             const string query = @"

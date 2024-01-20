@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using HTTTQLDanSo.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace HTTTQLDanSo.DataManagerment.Repositorys.Interfaces
@@ -7,6 +8,8 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys.Interfaces
     {
         Task<IEnumerable<Models.AccountViewModel>> GetAllAccountsAsync();
 
-        Task<IEnumerable<Models.AccountViewModel>> GetAllAccountsByNameAsync(string name);
+        Task<AccountViewModel> GetAllAccountsByIdAsync(string id);
+
+        Task<IEnumerable<AccountViewModel>> GetAllAccountsByNameAsync(string name);
     }
 }

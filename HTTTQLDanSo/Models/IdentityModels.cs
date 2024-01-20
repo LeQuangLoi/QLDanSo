@@ -18,8 +18,6 @@ namespace HTTTQLDanSo.Models
 
         public string DistrictId { set; get; }
 
-        public string WardsID { set; get; }
-
         public string RegionID { set; get; }
 
         public int? WorkerId { set; get; }
@@ -29,6 +27,7 @@ namespace HTTTQLDanSo.Models
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
+            userIdentity.AddClaim(new Claim("Id", Id));
             userIdentity.AddClaim(new Claim("RegionID", RegionID));
             userIdentity.AddClaim(new Claim("WorkerId", WorkerId.ToString()));
             userIdentity.AddClaim(new Claim("LastName", LastName));

@@ -88,18 +88,17 @@ namespace HTTTQLDanSo.Models
     public class ResetPasswordViewModel
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Display(Name = "Số điện thoại")]
+        public string PhoneNumber { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Mật khẩu mới:")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Xác nhận mật khẩu:")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
@@ -141,7 +140,15 @@ namespace HTTTQLDanSo.Models
 
         public string RegionID { get; set; }
 
+        public string ProvinName { get; set; }
+
+        public string DistrictName { get; set; }
+
         public string RegionName { get; set; }
+
+        public string Address_Name { get; set; }
+
+        public string Full_Address { get; set; }
     }
 
     public class EditAccountViewModel : RegisterAccountViewModel

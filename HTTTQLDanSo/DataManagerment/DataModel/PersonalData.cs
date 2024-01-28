@@ -4,9 +4,9 @@ namespace HTTTQLDanSo.DataManagerment.DataModel
 {
     public class PersonalData
     {
-        public int ID { get; set; }
+        public int Personal_ID { get; set; }
 
-        public string FullName { get; set; }
+        public string Full_Name { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
 

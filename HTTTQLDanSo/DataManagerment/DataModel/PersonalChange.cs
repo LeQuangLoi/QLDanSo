@@ -14,6 +14,11 @@ namespace HTTTQLDanSo.DataManagerment.DataModel
 
         public DateTime Change_Date { get; set; }
 
+        public string ChangeDate
+        {
+            get { return Change_Date.ToString("dd/MM/yyyy"); }
+        }
+
         public int Change_ID { get; set; }
 
         public DateTime? Come_date { get; set; }

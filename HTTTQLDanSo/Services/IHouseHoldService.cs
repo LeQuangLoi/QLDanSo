@@ -18,6 +18,12 @@ namespace HTTTQLDanSo.Services
 
         Task<IEnumerable<PersonalInfo>> GetPersonalByHouseHoldIDAndRegionIdAndpersonStatussAsync(string houseHoldID, string regionId, IEnumerable<string> personStatuss);
 
+        Task<IEnumerable<PersonalData>> GetPersonalMotherInformationAsync(string houseHoldID, string regionId);
+
+        Task<IEnumerable<GenerateHealth>> GetGenerateHealthInformationAsync(string houseHoldID, string regionId);
+
+        Task<IEnumerable<FamilyPlanningHistory>> GetFamilyPlanningHistoryAsync(string personalID, string regionID);
+
         Task<IEnumerable<PersonalChange>> GetPersonalChangeByPersonalIDAndRegionIdAsync(string personalID, string regionId);
 
         Task<IEnumerable<FamilyMember>> GetFamilyMemberAsync(string houseHoldID, string regionId, string mother_ID);

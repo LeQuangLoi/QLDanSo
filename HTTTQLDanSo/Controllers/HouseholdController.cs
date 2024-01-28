@@ -2,14 +2,29 @@
 using HTTTQLDanSo.DataManagerment.DataModel;
 using HTTTQLDanSo.Extensions;
 using HTTTQLDanSo.Services;
+using OfficeOpenXml;
+using OfficeOpenXml.Table;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace HTTTQLDanSo.Controllers
 {
+    public class TestItemClass
+    {
+        public int Id { get; set; }
+
+        public string FullName { get; set; }
+
+        public double Money { get; set; }
+
+        public string Address { get; set; }
+    }
+
     [Authorize(Roles = "CTV")]
     public class HouseholdController : Controller
     {
@@ -23,6 +38,64 @@ namespace HTTTQLDanSo.Controllers
             {
                 _pageSize = pageSize;
             }
+        }
+
+        private async Task<Stream> CreateExcelFileAsync(string houseHoldID, string addressName, string regionName, Stream stream = null)
+        {
+            try
+            {
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+                using (var excelPackage = new ExcelPackage(stream ?? new MemoryStream()))
+                {
+                    excelPackage.Workbook.Properties.Author = "loilequang";
+                    excelPackage.Workbook.Properties.Title = "DanhSachHo";
+                    excelPackage.Workbook.Worksheets.Add("DanhSachHo");
+                    var workSheet = excelPackage.Workbook.Worksheets[0];
+                    var regionId = IdentityExtensions.GetRegionID(HttpContext.User.Identity);
+
+                    var peronals = await _houseHoldService.GetPersonalByHouseHoldIDAndRegionIdAndpersonStatussAsync(houseHoldID, regionId, new List<string>() { "D", "G" });
+
+                    var dataToExport = peronals.Select(x => new Personal
+                    {
+                        Code = string.Empty,
+                        Education_Name = x.Education_Name,
+                        Ethnic_Name = x.Ethnic_Name,
+                        Marital_Name = x.Marital_Name,
+                        Relation_Name = x.Relation_Name,
+                        Residence_Name = x.Residence_Name,
+                        Sex_Name = x.Sex_Name,
+                        Technical_Name = x.Technical_Name,
+                        DateOfBirth = x.DateOfBirth,
+                        Full_Name = x.Full_Name,
+                    });
+                    workSheet.Cells["A1"].Value = "DANH SÁCH CÁ NHÂN";
+                    workSheet.Cells["A2"].Value = $"Hộ số: {houseHoldID}, {addressName} , {regionName}";
+                    workSheet.Cells["A3"].LoadFromCollection(dataToExport, true, TableStyles.Dark9);
+                    excelPackage.Save();
+                    return excelPackage.Stream;
+                }
+            }
+            catch (Exception ex)
+            {
+                return stream;
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> ExportToExcel(string houseHoldID, string addressName, string regionName)
+        {
+            // Gọi lại hàm để tạo file excel
+            var stream = await CreateExcelFileAsync(houseHoldID, addressName, regionName);
+            var buffer = stream as MemoryStream;
+            var fileName = $"DanhSachHo_{houseHoldID}_{DateTime.UtcNow.ToLongDateString()}";
+            var header = $"attachment; filename={fileName}.xlsx";
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("Content-Disposition", header);
+            Response.BinaryWrite(buffer.ToArray());
+            Response.Flush();
+            Response.End();
+            return RedirectToAction("Index");
         }
 
         // GET: Household
@@ -51,7 +124,7 @@ namespace HTTTQLDanSo.Controllers
             //    data = data.Where(s => s.Title.Contains(txtSearch));
             //}
 
-            if (page == 0)
+            if (!page.HasValue || page.Value == 0)
             {
                 page = 1;
             }
@@ -62,7 +135,7 @@ namespace HTTTQLDanSo.Controllers
             float totalNumsize = (totalPage / (float)_pageSize);
             int numSize = (int)Math.Ceiling(totalNumsize);
             ViewBag.numSize = numSize;
-            var dataPost = peronals.OrderByDescending(x => x.HouseHold_Code).Skip(start).Take(_pageSize);
+            var dataPost = peronals.OrderBy(x => x.HouseHold_Number).Skip(start).Take(_pageSize);
             List<HouseHold> listPost = new List<HouseHold>();
             listPost = dataPost.ToList();
             return Json(new { data = listPost, pageCurrent = page, numSize = numSize }, JsonRequestBehavior.AllowGet);
@@ -73,7 +146,7 @@ namespace HTTTQLDanSo.Controllers
         {
             var peronals = await _houseHoldService.GetPersonalByHouseHoldIDAndRegionIdAndpersonStatussAsync(houseHoldID, regionID, new List<string>() { "D", "G" });
 
-            if (page == 0)
+            if (!page.HasValue || page.Value == 0)
             {
                 page = 1;
             }
@@ -84,7 +157,7 @@ namespace HTTTQLDanSo.Controllers
             float totalNumsize = (totalPage / (float)_pageSize);
             int numSize = (int)Math.Ceiling(totalNumsize);
             ViewBag.numSize = numSize;
-            var dataPost = peronals.OrderByDescending(x => x.Relation_Code).Skip(start).Take(_pageSize);
+            var dataPost = peronals.OrderBy(x => x.Relation_Code).Skip(start).Take(_pageSize);
             List<PersonalInfo> listPost = new List<PersonalInfo>();
             listPost = dataPost.ToList();
             return Json(new { data = listPost, pageCurrent = page, numSize = numSize }, JsonRequestBehavior.AllowGet);
@@ -95,7 +168,7 @@ namespace HTTTQLDanSo.Controllers
         {
             var peronals = await _houseHoldService.GetPersonalChangeByPersonalIDAndRegionIdAsync(personalId, regionID);
 
-            if (page == 0)
+            if (!page.HasValue || page.Value == 0)
             {
                 page = 1;
             }
@@ -106,8 +179,77 @@ namespace HTTTQLDanSo.Controllers
             float totalNumsize = (totalPage / (float)_pageSize);
             int numSize = (int)Math.Ceiling(totalNumsize);
             ViewBag.numSize = numSize;
-            var dataPost = peronals.OrderByDescending(x => x.Change_Date).Skip(start).Take(_pageSize);
+            var dataPost = peronals.OrderBy(x => x.Change_Date).Skip(start).Take(_pageSize);
             List<PersonalChange> listPost = new List<PersonalChange>();
+            listPost = dataPost.ToList();
+            return Json(new { data = listPost, pageCurrent = page, numSize = numSize }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetPersonalMotherInformationAsync(string searchText, string personalId, string regionID, int? page)
+        {
+            var peronals = await _houseHoldService.GetPersonalMotherInformationAsync(personalId, regionID);
+
+            if (!page.HasValue || page.Value == 0)
+            {
+                page = 1;
+            }
+
+            int start = (int)(page - 1) * _pageSize;
+
+            ViewBag.pageCurrent = page;
+            int totalPage = peronals.Count();
+            float totalNumsize = (totalPage / (float)_pageSize);
+            int numSize = (int)Math.Ceiling(totalNumsize);
+            ViewBag.numSize = numSize;
+            var dataPost = peronals.OrderBy(x => x.DateOfBirth).Skip(start).Take(_pageSize);
+            List<PersonalData> listPost = new List<PersonalData>();
+            listPost = dataPost.ToList();
+            return Json(new { data = listPost, pageCurrent = page, numSize = numSize }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetGenerateHealthInformationAsync(string searchText, string personalId, string regionID, int? page)
+        {
+            var peronals = await _houseHoldService.GetGenerateHealthInformationAsync(personalId, regionID);
+
+            if (!page.HasValue || page.Value == 0)
+            {
+                page = 1;
+            }
+
+            int start = (int)(page - 1) * _pageSize;
+
+            ViewBag.pageCurrent = page;
+            int totalPage = peronals.Count();
+            float totalNumsize = (totalPage / (float)_pageSize);
+            int numSize = (int)Math.Ceiling(totalNumsize);
+            ViewBag.numSize = numSize;
+            var dataPost = peronals.OrderBy(x => x.Gen_Date).Skip(start).Take(_pageSize);
+            List<GenerateHealth> listPost = new List<GenerateHealth>();
+            listPost = dataPost.ToList();
+            return Json(new { data = listPost, pageCurrent = page, numSize = numSize }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetFamilyPlanningHistoryAsync(string searchText, string personalId, string regionID, int? page)
+        {
+            var peronals = await _houseHoldService.GetFamilyPlanningHistoryAsync(personalId, regionID);
+
+            if (!page.HasValue || page.Value == 0)
+            {
+                page = 1;
+            }
+
+            int start = (int)(page - 1) * _pageSize;
+
+            ViewBag.pageCurrent = page;
+            int totalPage = peronals.Count();
+            float totalNumsize = (totalPage / (float)_pageSize);
+            int numSize = (int)Math.Ceiling(totalNumsize);
+            ViewBag.numSize = numSize;
+            var dataPost = peronals.OrderBy(x => x.Contra_Date).Skip(start).Take(_pageSize);
+            List<FamilyPlanningHistory> listPost = new List<FamilyPlanningHistory>();
             listPost = dataPost.ToList();
             return Json(new { data = listPost, pageCurrent = page, numSize = numSize }, JsonRequestBehavior.AllowGet);
         }
@@ -117,7 +259,7 @@ namespace HTTTQLDanSo.Controllers
         {
             var familyMembers = await _houseHoldService.GetFamilyMemberAsync(houseHoldID, regionId, mother_ID);
 
-            if (page == 0)
+            if (!page.HasValue || page.Value == 0)
             {
                 page = 1;
             }

@@ -15,10 +15,11 @@ namespace HTTTQLDanSo.Services
         private readonly IPersonalChangeRepository _iPersonalChangeRepository;
         private readonly IPersonalRepository _iPersonalRepository;
         private readonly IFamilyMemberRepository _iFamilyMemberRepository;
+        private readonly IHealthInformationRepository _healthInformationRepository;
 
         public HouseHoldService(IRegionRepository iRegionRepository, IAddressRepository iAddressRepository
             , IHouseHoldRepository iHouseHoldRepository, IPersonalChangeRepository iPersonalChangeRepository, IPersonalRepository iPersonalRepository
-            , IFamilyMemberRepository iFamilyMemberRepository)
+            , IFamilyMemberRepository iFamilyMemberRepository, IHealthInformationRepository healthInformationRepository)
         {
             _iRegionRepository = iRegionRepository;
             _iAddressRepository = iAddressRepository;
@@ -26,6 +27,7 @@ namespace HTTTQLDanSo.Services
             _iPersonalChangeRepository = iPersonalChangeRepository;
             _iPersonalRepository = iPersonalRepository;
             _iFamilyMemberRepository = iFamilyMemberRepository;
+            _healthInformationRepository = healthInformationRepository;
         }
 
         public async Task<IEnumerable<Address>> GetAddressesByRegionIdAsync(string regionId)
@@ -80,6 +82,21 @@ namespace HTTTQLDanSo.Services
         public async Task<IEnumerable<PersonalInfo>> GetPersonalByHouseHoldIDAndRegionIdAndpersonStatussAsync(string houseHoldID, string regionId, IEnumerable<string> personStatuss)
         {
             return await _iPersonalRepository.GetPersonalByHouseHoldIDAndRegionIdAndpersonStatussAsync(houseHoldID, regionId, personStatuss);
+        }
+
+        public async Task<IEnumerable<PersonalData>> GetPersonalMotherInformationAsync(string houseHoldID, string regionId)
+        {
+            return await _healthInformationRepository.GetPersonalMotherInformationAsync(houseHoldID, regionId);
+        }
+
+        public async Task<IEnumerable<GenerateHealth>> GetGenerateHealthInformationAsync(string houseHoldID, string regionId)
+        {
+            return await _healthInformationRepository.GetGenerateHealthInformationAsync(houseHoldID, regionId);
+        }
+
+        public async Task<IEnumerable<FamilyPlanningHistory>> GetFamilyPlanningHistoryAsync(string personalID, string regionID)
+        {
+            return await _healthInformationRepository.GetFamilyPlanningHistoryAsync(personalID, regionID);
         }
 
         public async Task<IEnumerable<PersonalChange>> GetPersonalChangeByPersonalIDAndRegionIdAsync(string personalID, string regionId)

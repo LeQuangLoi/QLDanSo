@@ -88,7 +88,7 @@ namespace HTTTQLDanSo.Controllers
             // Gọi lại hàm để tạo file excel
             var stream = await CreateExcelFileAsync(houseHoldID, addressName, regionName);
             var buffer = stream as MemoryStream;
-            var fileName = $"DanhSachHo_{houseHoldID}_{DateTime.UtcNow.ToLongDateString()}";
+            var fileName = $"DanhSachHo_{houseHoldID}_{DateTime.UtcNow.ToLongTimeString()}";
             var header = $"attachment; filename={fileName}.xlsx";
             Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             Response.AddHeader("Content-Disposition", header);

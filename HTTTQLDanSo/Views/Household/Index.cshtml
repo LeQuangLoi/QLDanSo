@@ -223,8 +223,7 @@
     }
 
     var clickPagingHousehold = function (page) {
-    event.preventDefault();
-    console.log('page xx: ' + page);
+    event.preventDefault(); 
     var addressId = $('#cboAddress').val();
     var txtSearch = $(".txtSearch").val();
     if (txtSearch) {
@@ -585,7 +584,8 @@
 
     var downloadExcelFile = function () {
         var houseHoldID = document.getElementById("householdId").value;
-        var addressName = $('#cboAddress').val();
+        var selectElement = document.getElementById("cboAddress");
+        var addressName = selectElement.options[selectElement.selectedIndex].text;
         var regionName=  "@ViewBag.RegionName";
             $.ajax({
                 url: `/Household/ExportToExcel?houseHoldID=${houseHoldID}&addressName=${addressName}&regionName=${regionName}`, // Ensure that the correct URL and parameter syntax is used

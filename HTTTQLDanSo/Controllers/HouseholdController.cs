@@ -70,7 +70,9 @@ namespace HTTTQLDanSo.Controllers
                         Full_Name = x.Full_Name,
                     });
                     workSheet.Cells["A1"].Value = "DANH SÁCH CÁ NHÂN";
+                    workSheet.Cells["A1"].Style.Font.Bold = true;
                     workSheet.Cells["A2"].Value = $"Hộ số: {houseHoldID}, {addressName} , {regionName}";
+                    workSheet.Cells["A2"].Style.Font.Bold = true;
                     workSheet.Cells["A3"].LoadFromCollection(dataToExport, true, TableStyles.Dark9);
                     excelPackage.Save();
                     return excelPackage.Stream;

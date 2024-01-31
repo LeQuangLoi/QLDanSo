@@ -74,12 +74,6 @@ namespace HTTTQLDanSo.Services
             return provinces;
         }
 
-        //public async Task<IEnumerable<Region>> GetRegionsByParrentIdAsync(string provinceId)
-        //{
-        //    var provinces = await _iRegionRepository.GetRegionsByParrentIdAsync(provinceId);
-        //    return provinces;
-        //}
-
         public async Task<IEnumerable<Address>> GetAddressByRegionIdAsync(string regionId)
         {
             var address = await _iAddressRepository.GetAddressesByRegionIdAsync(regionId);
@@ -121,21 +115,12 @@ namespace HTTTQLDanSo.Services
             {
                 var result = await manager.DeleteAsync(user);
 
-                if (result.Succeeded)
-                {
-                    // User deletion successful
-                }
-                else
-                {
-                    // Handle the case where user deletion failed, possibly log or handle the error
-                }
+                return result.Succeeded;
             }
             else
             {
-                // Handle the case where the user was not found
+                return false;
             }
-
-            return true;
         }
 
         public async Task<Tuple<bool, RegisterAccountViewModel>> RegisterAccountAsync(RegisterAccountViewModel registerAccountViewModel)

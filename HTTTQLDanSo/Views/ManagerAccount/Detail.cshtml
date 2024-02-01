@@ -17,7 +17,7 @@
             <strong>@ViewData["ErrorMsg"].ToString() </strong>
         </div>
     }
-    @using (Html.BeginForm("Detail", "ManagerAccount", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm("Update", "ManagerAccount", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.HiddenFor(m => m.Id);
         <div class="container">

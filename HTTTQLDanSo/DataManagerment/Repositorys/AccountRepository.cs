@@ -15,27 +15,29 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys
         public async Task<IEnumerable<AccountViewModel>> GetAllAccountsAsync()
         {
             const string query = @"
-           SELECT
-            u.Id,
-            u.FirstName,
-            u.LastName,
-            u.PhoneNumber,
-            u.UserName,
-            STUFF((SELECT ', ' + role.Name
-                   FROM AspNetUserRoles ur
-                   JOIN AspNetRoles role ON role.Id = ur.RoleId
-                   WHERE ur.UserId = u.Id
+            SELECT
+                u.Id,
+                u.FirstName,
+                u.LastName,
+                u.PhoneNumber,
+                u.UserName,
+                STUFF((SELECT ', ' + role.Name
+                       FROM AspNetUserRoles ur
+                JOIN AspNetRoles role ON role.Id = ur.RoleId
+                WHERE ur.UserId = u.Id
                    FOR XML PATH('')), 1, 2, '') AS AllRoles,
             u.WorkerId,
             a.Address_Name AS WorkName,
             u.RegionID,
             r.Region_Name AS RegionName
-        FROM
-            AspNetUsers u
-        JOIN
-            Address a ON u.WorkerId= a.FieldWorker_ID
-        JOIN
-            Region r ON u.RegionID= r.Region_ID";
+            FROM
+                AspNetUsers u
+            JOIN
+                Address a ON u.WorkerId= a.FieldWorker_ID
+            JOIN
+                Region r ON u.RegionID= r.Region_ID
+            GROUP BY
+                u.Id, u.FirstName, u.LastName, u.PhoneNumber, u.UserName, u.WorkerId, a.Address_Name, u.RegionID, r.Region_Name";
 
             using (var connection = this.CreateConnection())
             {
@@ -62,11 +64,11 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys
                 FROM
                     AspNetUsers u
                 JOIN
-                    Address a ON u.WorkerId= a.FieldWorker_ID
+                    Address a ON u.WorkerId = a.FieldWorker_ID
                 JOIN
-                    Region r ON u.RegionID= r.Region_ID
-				LEFT JOIN Region di on u.DistrictId=di.Region_ID
-				LEFT JOIN Region pr on u.ProvinId=pr.Region_ID
+                    Region r ON u.RegionID = r.Region_ID
+				LEFT JOIN Region di on u.DistrictId = di.Region_ID
+				LEFT JOIN Region pr on u.ProvinId = pr.Region_ID
                 WHERE u.Id = @id";
 
             var parameters = new { id = $"{id}" };

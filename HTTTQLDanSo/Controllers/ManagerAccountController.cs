@@ -94,13 +94,13 @@ namespace HTTTQLDanSo.Controllers
         [HttpGet]
         public async Task<ActionResult> Detail(string id)
         {
-            var account = await _iAccountService.GetAccountByIdAsync(id);
+            var account = await _iAccountService.GetEditAccountByIdAsync(id);
 
             return View(account);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Detail(EditAccountViewModel editAccountViewModel)
+        public async Task<ActionResult> Update(EditAccountViewModel editAccountViewModel)
         {
             ViewData["ErrorMsg"] = null;
             ViewData["SuccessMsg"] = null;

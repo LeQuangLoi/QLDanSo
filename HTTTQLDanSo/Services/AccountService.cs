@@ -279,6 +279,43 @@ namespace HTTTQLDanSo.Services
             }
         }
 
+        public async Task<EditAccountViewModel> GetEditAccountByIdAsync(string id)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+                var account = await _iAccountRepository.GetAllAccountsByIdAsync(id);
+                var user = await manager.FindByIdAsync(id);
+                if (user == null)
+                {
+                    return null;
+                }
+                var provinces = await _iRegionRepository.GetRegionsByParrentIdAsync(_regionIdLevel1);
+                var districts = await _iRegionRepository.GetRegionsByParrentIdAsync(user.ProvinId);
+                var regions = await _iRegionRepository.GetRegionsByParrentIdAsync(user.DistrictId);
+                var workers = await _iAddressRepository.GetAddressesByRegionIdAsync(user.RegionID);
+                var oldRoleNames = await manager.GetRolesAsync(user.Id);
+                return new EditAccountViewModel
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    PhoneNumber = user.PhoneNumber,
+                    SelectedRoleNames = oldRoleNames,
+                    ProvinId = user.ProvinId,
+                    DistrictId = user.DistrictId,
+                    RegionID = user.RegionID,
+                    WorkerId = user.WorkerId?.ToString(),
+                    Roles = GetAllRole(),
+                    Provinces = provinces.Select(x => new SelectListItem { Text = x.Region_Name, Value = x.Region_ID.ToString() }).ToList(),
+                    Districts = districts.Select(x => new SelectListItem { Text = x.Region_Name, Value = x.Region_ID.ToString() }).ToList(),
+                    Regions = regions.Select(x => new SelectListItem { Text = x.Region_Name, Value = x.Region_ID.ToString() }).ToList(),
+                    Workers = workers.Select(x => new SelectListItem { Text = x.Full_Address, Value = x.FieldWorker_ID.ToString() }).ToList(),
+                };
+            }
+        }
+
         public async Task<AccountViewModel> GetAccountByIdAsync(string id)
         {
             return await _iAccountRepository.GetAllAccountsByIdAsync(id);

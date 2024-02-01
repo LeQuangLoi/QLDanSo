@@ -37,7 +37,7 @@
             STT
         </th>
         <th>
-            @Html.ActionLink("Tên đầy đu", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Tên đầy đủ", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
             Số điện thoại
@@ -81,8 +81,13 @@
                 @Html.DisplayFor(modelItem => item.AllRoles)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Detail", new { id = item.Id }) |
-                <button onclick="deleteUser('@item.Id')">Delete</button>
+                <div class="d-flex gap-2 mb-3">
+                    <a href="@Url.Action("Detail", "ManagerAccount", new { id = item.Id })" class="btn btn-primary btn-sm">
+                        Sửa
+                    </a>
+
+                    <button type="button" onclick="deleteUser('@item.Id')" class="btn btn-primary btn-sm btn-danger">Xóa</button>
+                </div>
             </td>
         </tr>
     }
@@ -109,6 +114,4 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
             }
         });
     }
-
-
 </script>

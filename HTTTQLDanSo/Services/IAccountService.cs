@@ -30,5 +30,7 @@ namespace HTTTQLDanSo.Services
         Task<Tuple<ModelStateDictionary, EditAccountViewModel>> UpdateAccountAccountByIdAsync(EditAccountViewModel editAccountViewModel, ModelStateDictionary modelState);
 
         Task<AccountViewModel> GetAccountByIdAsync(string id);
+
+        Task<EditAccountViewModel> GetEditAccountByIdAsync(string id);
     }
 }

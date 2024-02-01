@@ -98,13 +98,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         with font-awesome or any other icon font library -->
                         <li class="nav-item @((Request.Url.AbsolutePath.Contains("ManagerAccount")) ? "menu-is-opening menu-open" : "")">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="fas fa-user-tie"></i>
                                 <p>
                                     Quản lý account
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+
+
                                 <li class="nav-item">
                                     <a href='@Url.Action("Index", "ManagerAccount")' class="nav-link">
                                         <i class="far fa-table nav-icon"></i>

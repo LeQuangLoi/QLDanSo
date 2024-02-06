@@ -255,6 +255,7 @@
     <Compile Include="DataManagerment\DataModel\PhieuThuTinReport.cs" />
     <Compile Include="DataManagerment\DataModel\PhieuThuTinReport2.cs" />
     <Compile Include="DataManagerment\DataModel\Region.cs" />
+    <Compile Include="DataManagerment\DataModel\UserWorker.cs" />
     <Compile Include="DataManagerment\EntityFramework\DbFactory.cs" />
     <Compile Include="DataManagerment\EntityFramework\HTTTQLDanSoDbContext.cs" />
     <Compile Include="DataManagerment\EntityFramework\IDbFactory.cs" />
@@ -272,9 +273,11 @@
     <Compile Include="DataManagerment\Repositorys\Interfaces\IHealthInformationRepository.cs" />
     <Compile Include="DataManagerment\Repositorys\Interfaces\IHouseHoldRepository.cs" />
     <Compile Include="DataManagerment\Repositorys\Interfaces\IPersonalChangeRepository.cs" />
+    <Compile Include="DataManagerment\Repositorys\Interfaces\IPersonalRepository - Copy.cs" />
     <Compile Include="DataManagerment\Repositorys\Interfaces\IPersonalRepository.cs" />
     <Compile Include="DataManagerment\Repositorys\Interfaces\IRegionRepository.cs" />
     <Compile Include="DataManagerment\Repositorys\PersonaChangelRepository.cs" />
+    <Compile Include="DataManagerment\Repositorys\UserWorkerRepository.cs" />
     <Compile Include="DataManagerment\Repositorys\PersonalRepository.cs" />
     <Compile Include="DataManagerment\Repositorys\RegionRepository.cs" />
     <Compile Include="DataManagerment\SqlRepository.cs" />
@@ -316,6 +319,7 @@
     <Content Include="dist\css\alt\adminlte.pages.min.css" />
     <Content Include="dist\css\alt\adminlte.plugins.css" />
     <Content Include="dist\css\alt\adminlte.plugins.min.css" />
+    <Content Include="dist\css\select2.min.css" />
     <Content Include="dist\img\AdminLTELogo.png" />
     <Content Include="dist\img\avatar.png" />
     <Content Include="dist\img\avatar2.png" />
@@ -355,6 +359,7 @@
     <Content Include="dist\js\pages\dashboard.js" />
     <Content Include="dist\js\pages\dashboard2.js" />
     <Content Include="dist\js\pages\dashboard3.js" />
+    <Content Include="dist\js\select2.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

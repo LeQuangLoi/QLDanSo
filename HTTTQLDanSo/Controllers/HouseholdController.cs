@@ -86,8 +86,7 @@ namespace HTTTQLDanSo.Controllers
 
         [HttpGet]
         public async Task<ActionResult> ExportToExcel(string houseHoldID, string addressName, string regionName)
-        {
-            // Gọi lại hàm để tạo file excel
+        { 
             var stream = await CreateExcelFileAsync(houseHoldID, addressName, regionName);
             var buffer = stream as MemoryStream;
             var fileName = $"DanhSachHo_{houseHoldID}_{DateTime.UtcNow.ToLongTimeString()}";
@@ -110,7 +109,7 @@ namespace HTTTQLDanSo.Controllers
 
             ViewBag.RegionId = regionId;
             ViewBag.RegionName = regionName;
-            ViewBag.Address = await GetAddressesByWorkerIdAsync();
+            ViewBag.Address = await GetAddressesByUserIdAsync();
 
             return View();
         }
@@ -292,15 +291,15 @@ namespace HTTTQLDanSo.Controllers
             var workerId = IdentityExtensions.GetWorkerId(HttpContext.User.Identity);
             var address = await _houseHoldService.GetAddressesByWorkerIdAsync(workerId);
 
-            var selectList = await GetAddressesByWorkerIdAsync();
+            var selectList = await GetAddressesByUserIdAsync();
 
             return Json(selectList, JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<SelectList> GetAddressesByWorkerIdAsync()
+        public async Task<SelectList> GetAddressesByUserIdAsync()
         {
-            var workerId = IdentityExtensions.GetWorkerId(HttpContext.User.Identity);
-            var address = await _houseHoldService.GetAddressesByWorkerIdAsync(workerId);
+            var userId = IdentityExtensions.GetUserId(HttpContext.User.Identity);
+            var address = await _houseHoldService.GetUserWorkerByUserIdAsync(userId);
 
             return new SelectList(address, "Address_ID", "Full_Address");
         }

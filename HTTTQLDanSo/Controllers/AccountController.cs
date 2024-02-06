@@ -74,7 +74,7 @@ namespace HTTTQLDanSo.Controllers
             var user = SignInManager.UserManager.Users.FirstOrDefault(x => x.PhoneNumber == model.PhoneNumber);
             if (user == null)
             {
-                ModelState.AddModelError("", "Invalid login attempt.");
+                ModelState.AddModelError("", "Tài khoản hoặc mật khẩu sai, vui lòng kiểm tra lại!");
                 return View(model);
             }
             var result = await SignInManager.UserManager.CheckPasswordAsync(user, model.Password);
@@ -82,7 +82,7 @@ namespace HTTTQLDanSo.Controllers
             {
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 var userRole = UserManager.GetRoles(user.Id);
-                if (userRole.Any(x => x.Equals("Admin")))
+                if (userRole.Any(x => x.Equals("Admin") || x.Equals("SupperAdmin")))
                 {
                     return RedirectToAction("Index", "ManagerAccount"); // Redirect to ManagerController's Index action
                 }
@@ -93,7 +93,7 @@ namespace HTTTQLDanSo.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Invalid login attempt.");
+                ModelState.AddModelError("", "Tài khoản hoặc mật khẩu sai, vui lòng kiểm tra lại!");
                 return View(model);
             }
         }
@@ -420,7 +420,7 @@ namespace HTTTQLDanSo.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //

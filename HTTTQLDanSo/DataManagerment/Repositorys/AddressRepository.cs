@@ -35,7 +35,7 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys
             const string query = @"
             SELECT
                 FieldWorker_ID
-                ,Address_ID
+                , Address_ID
                 , Full_Address
                 , Notes
                 , FieldWorker_Name

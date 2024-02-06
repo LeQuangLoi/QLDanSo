@@ -36,7 +36,7 @@
                     FirstName="THỤC",
                     WorkerId = 3,
                     ProvinId="0100000000",
-                    DistrictId="0100300000", 
+                    DistrictId="0100300000",
                     LastName="NGUYỄN THỊ",
                     UserName = "946002401",
                     Email = "thucnguyenthi@demo.com",
@@ -312,13 +312,28 @@
                     FirstName = "Dai",
                     WorkerId = null,
                     LastName = "Duong",
-                    UserName = "999999999",
+                    UserName = "0886861267",
                     Email = "daiduong@gmail.com",
                     EmailConfirmed = false,
                     RegionID=string.Empty,
-                    PhoneNumber = "999999999"
+                    PhoneNumber = "0886861267"
                 }
             };
+            var supperAdmins = new List<ApplicationUser>
+            {
+                new ApplicationUser()
+                {
+                    FirstName = "Le",
+                    WorkerId = null,
+                    LastName = "Loi",
+                    UserName = "0975347490",
+                    Email = "lequangloi0909@gmail.com",
+                    EmailConfirmed = false,
+                    RegionID=string.Empty,
+                    PhoneNumber = "0975347490"
+                }
+            };
+
             if (!roleManager.Roles.Any())
             {
                 roleManager.Create(new IdentityRole { Name = "SuperAdmin" });
@@ -334,6 +349,9 @@
                     if (result.Succeeded)
                     {
                         var ctvUser = manager.Users.FirstOrDefault(x => x.PhoneNumber == user.PhoneNumber);
+
+                        // Initi
+                        context.Database.ExecuteSqlCommand("INSERT INTO UserWorkers (WorkerId, UserId) VALUES ({0}, {1})", user.WorkerId, ctvUser.Id);
                         if (ctvUser != null)
                         {
                             manager.AddToRoles(ctvUser.Id, new string[] { "CTV" });
@@ -352,7 +370,23 @@
                         var adminUser = manager.Users.FirstOrDefault(x => x.PhoneNumber == user.PhoneNumber);
                         if (adminUser != null)
                         {
-                            manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
+                            manager.AddToRoles(adminUser.Id, new string[] { "Admin" });
+                        }
+                    }
+                }
+            }
+
+            foreach (var user in supperAdmins)
+            {
+                if (manager.Users.Count(x => x.PhoneNumber == user.PhoneNumber) == 0)
+                {
+                    var result = manager.Create(user, "Abc@999");
+                    if (result.Succeeded)
+                    {
+                        var adminUser = manager.Users.FirstOrDefault(x => x.PhoneNumber == user.PhoneNumber);
+                        if (adminUser != null)
+                        {
+                            manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin" });
                         }
                     }
                 }

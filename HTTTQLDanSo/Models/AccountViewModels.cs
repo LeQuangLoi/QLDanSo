@@ -134,7 +134,7 @@ namespace HTTTQLDanSo.Models
 
         public string AllRoles { get; set; }
 
-        public string WorkerId { get; set; }
+        public string AllAddress { get; set; }
 
         public string WorkName { get; set; }
 
@@ -172,8 +172,8 @@ namespace HTTTQLDanSo.Models
 
         public IList<RoleViewModel> Roles { get; set; }
 
-        [Required(ErrorMessage = "Vui lòng nhập địa chỉ.")]
-        public string WorkerId { get; set; }// It from a list select option
+        [MustHaveWorkerIds(ErrorMessage = "Vui lòng nhập địa chỉ.")]
+        public List<int> WorkerIds { get; set; }
 
         public List<System.Web.Mvc.SelectListItem> Workers { get; set; }
 
@@ -190,5 +190,18 @@ namespace HTTTQLDanSo.Models
         public List<System.Web.Mvc.SelectListItem> Districts { get; set; } = new List<System.Web.Mvc.SelectListItem>();
 
         public List<System.Web.Mvc.SelectListItem> Regions { get; set; }
+    }
+
+    public class MustHaveWorkerIdsAttribute : ValidationAttribute
+    {
+        public override bool IsValid(object value)
+        {
+            if (value is List<int> workerIds)
+            {
+                return workerIds.Count > 0;
+            }
+
+            return false;
+        }
     }
 }

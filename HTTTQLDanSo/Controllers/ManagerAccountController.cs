@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace HTTTQLDanSo.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,SuperAdmin")]
     public class ManagerAccountController : Controller
     {
         private readonly IAccountService _iAccountService;

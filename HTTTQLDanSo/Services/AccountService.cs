@@ -1,5 +1,6 @@
 ﻿using HTTTQLDanSo.Constants;
 using HTTTQLDanSo.DataManagerment.DataModel;
+using HTTTQLDanSo.DataManagerment.Repositorys;
 using HTTTQLDanSo.DataManagerment.Repositorys.Interfaces;
 using HTTTQLDanSo.Models;
 using Microsoft.AspNet.Identity;
@@ -18,17 +19,17 @@ namespace HTTTQLDanSo.Services
         private readonly IRegionRepository _iRegionRepository;
         private readonly IAddressRepository _iAddressRepository;
         private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
+        private IUserWorkerRepository _iUserWorkerRepository;
         private const string _defaultPassword = "Abc@123";
         private const string _regionIdLevel1 = "0000000000";
 
-        public AccountService(IAccountRepository iAccountRepository, IRegionRepository iRegionRepository, IAddressRepository iAddressRepository, ApplicationSignInManager signInManager, ApplicationUserManager userManager)
+        public AccountService(IAccountRepository iAccountRepository, IRegionRepository iRegionRepository, IAddressRepository iAddressRepository, ApplicationSignInManager signInManager, IUserWorkerRepository iUserWorkerRepository)
         {
             _iAccountRepository = iAccountRepository;
             _iRegionRepository = iRegionRepository;
             _iAddressRepository = iAddressRepository;
             _signInManager = signInManager;
-            _userManager = userManager;
+            _iUserWorkerRepository = iUserWorkerRepository;
         }
 
         public async Task<IEnumerable<AccountViewModel>> GetAllAccountsAsync()
@@ -54,7 +55,7 @@ namespace HTTTQLDanSo.Services
         public List<RoleViewModel> GetAllRole()
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
-            var roles = roleManager.Roles.ToList();
+            var roles = roleManager.Roles.Where(x => !x.Name.Equals("SuperAdmin")).ToList();
             return roles.Select(x => new RoleViewModel { RoleName = x.Name, RoleId = x.Id.ToString() }).ToList();
         }
 
@@ -135,7 +136,6 @@ namespace HTTTQLDanSo.Services
                     defaultPassword = _defaultPassword;
                 }
 
-                int.TryParse(registerAccountViewModel.WorkerId, out int workerId);
                 var result = await manager.CreateAsync(new ApplicationUser
                 {
                     FirstName = registerAccountViewModel.FirstName,
@@ -144,8 +144,7 @@ namespace HTTTQLDanSo.Services
                     UserName = registerAccountViewModel.PhoneNumber,
                     ProvinId = registerAccountViewModel.ProvinId,
                     DistrictId = registerAccountViewModel.DistrictId,
-                    RegionID = registerAccountViewModel.RegionID,
-                    WorkerId = workerId,
+                    RegionID = registerAccountViewModel.RegionID
                 }, defaultPassword);
 
                 var provinces = await _iRegionRepository.GetRegionsByParrentIdAsync(_regionIdLevel1);
@@ -163,18 +162,23 @@ namespace HTTTQLDanSo.Services
                     return new Tuple<bool, RegisterAccountViewModel>(false, registerAccountViewModel);
                 }
 
-                var adminUser = manager.Users.FirstOrDefault(x => x.PhoneNumber == registerAccountViewModel.PhoneNumber);
+                var user = manager.Users.FirstOrDefault(x => x.PhoneNumber == registerAccountViewModel.PhoneNumber);
 
-                if (adminUser != null && registerAccountViewModel.SelectedRoleNames != null && registerAccountViewModel.SelectedRoleNames.Any())
+                if (user != null)
                 {
-                    foreach (var roleName in registerAccountViewModel.SelectedRoleNames)
+                    if (registerAccountViewModel.SelectedRoleNames != null && registerAccountViewModel.SelectedRoleNames.Any())
                     {
-                        if (!string.IsNullOrEmpty(roleName))
-
+                        foreach (var roleName in registerAccountViewModel.SelectedRoleNames)
                         {
-                            manager.AddToRoles(adminUser.Id, new string[] { roleName });
+                            if (!string.IsNullOrEmpty(roleName))
+
+                            {
+                                manager.AddToRoles(user.Id, new string[] { roleName });
+                            }
                         }
                     }
+
+                    await _iUserWorkerRepository.AddUserWorkerAsync(registerAccountViewModel.WorkerIds.Distinct().Select(x => new UserWorker { UserId = user.Id, WorkerId = x }));
                 }
 
                 return new Tuple<bool, RegisterAccountViewModel>(true, registerAccountViewModel);
@@ -219,7 +223,7 @@ namespace HTTTQLDanSo.Services
                         ProvinId = user.ProvinId,
                         DistrictId = user.DistrictId,
                         RegionID = user.RegionID,
-                        WorkerId = user.WorkerId?.ToString(),
+                        //  WorkerIds = user.WorkerIds,
                         Roles = GetAllRole(),
                         Provinces = provinces.Select(x => new SelectListItem { Text = x.Region_Name, Value = x.Region_ID.ToString() }).ToList(),
                         Districts = districts.Select(x => new SelectListItem { Text = x.Region_Name, Value = x.Region_ID.ToString() }).ToList(),
@@ -227,7 +231,7 @@ namespace HTTTQLDanSo.Services
                         Workers = workers.Select(x => new SelectListItem { Text = x.Full_Address, Value = x.FieldWorker_ID.ToString() }).ToList(),
                     });
                 }
-                int.TryParse(editAccountViewModel.WorkerId, out int workerId);
+
                 user.FirstName = editAccountViewModel.FirstName;
                 user.LastName = editAccountViewModel.LastName;
                 user.PhoneNumber = editAccountViewModel.PhoneNumber;
@@ -235,7 +239,6 @@ namespace HTTTQLDanSo.Services
                 user.ProvinId = editAccountViewModel.ProvinId;
                 user.DistrictId = editAccountViewModel.DistrictId;
                 user.RegionID = editAccountViewModel.RegionID;
-                user.WorkerId = workerId;
 
                 var oldRoleNames = await manager.GetRolesAsync(user.Id);
                 if (oldRoleNames != null && oldRoleNames.Any())
@@ -257,6 +260,11 @@ namespace HTTTQLDanSo.Services
                     }
                 }
 
+                if (editAccountViewModel.WorkerIds != null && editAccountViewModel.WorkerIds.Any())
+                {
+                    await _iUserWorkerRepository.UpdateUserWorkerAsync(editAccountViewModel.WorkerIds.Distinct().Select(x => new UserWorker { WorkerId = x, UserId = user.Id }));
+                }
+
                 await manager.UpdateAsync(user);
 
                 return new Tuple<ModelStateDictionary, EditAccountViewModel>(modelState, new EditAccountViewModel
@@ -269,7 +277,7 @@ namespace HTTTQLDanSo.Services
                     ProvinId = user.ProvinId,
                     DistrictId = user.DistrictId,
                     RegionID = user.RegionID,
-                    WorkerId = user.WorkerId?.ToString(),
+                    WorkerIds = editAccountViewModel.WorkerIds,
                     Roles = GetAllRole(),
                     Provinces = provinces.Select(x => new SelectListItem { Text = x.Region_Name, Value = x.Region_ID.ToString() }).ToList(),
                     Districts = districts.Select(x => new SelectListItem { Text = x.Region_Name, Value = x.Region_ID.ToString() }).ToList(),
@@ -295,6 +303,7 @@ namespace HTTTQLDanSo.Services
                 var districts = await _iRegionRepository.GetRegionsByParrentIdAsync(user.ProvinId);
                 var regions = await _iRegionRepository.GetRegionsByParrentIdAsync(user.DistrictId);
                 var workers = await _iAddressRepository.GetAddressesByRegionIdAsync(user.RegionID);
+                var workerIds = await _iUserWorkerRepository.GetUserWorkerByUserIdAsync(user.Id);
                 var oldRoleNames = await manager.GetRolesAsync(user.Id);
                 return new EditAccountViewModel
                 {
@@ -306,7 +315,7 @@ namespace HTTTQLDanSo.Services
                     ProvinId = user.ProvinId,
                     DistrictId = user.DistrictId,
                     RegionID = user.RegionID,
-                    WorkerId = user.WorkerId?.ToString(),
+                    WorkerIds = workerIds.Select(x => x.WorkerId)?.ToList(),
                     Roles = GetAllRole(),
                     Provinces = provinces.Select(x => new SelectListItem { Text = x.Region_Name, Value = x.Region_ID.ToString() }).ToList(),
                     Districts = districts.Select(x => new SelectListItem { Text = x.Region_Name, Value = x.Region_ID.ToString() }).ToList(),

@@ -198,10 +198,10 @@
     // Initial call to load addresses
         loadAddresses();
 
-        @*$('#cboAddress').change(function () {
+        $('#cboAddress').change(function () {
             var addressId = $('#cboAddress').val();
-            loadHousehold(null, '@(ViewBag.RegionId)', addressId, 5);
-        });*@
+            loadHousehold(null, '@(ViewBag.RegionId)', addressId, 1);
+        });
     });
 
     function loadAddresses() {
@@ -214,8 +214,7 @@
                 $.each(data, function (index, item) {
                     $('#cboAddress').append($('<option></option>').val(item.Value).html(item.Text));
                 });
-                if (data && data.length) {
-                    console.log('page xx: 1');
+                if (data && data.length) { 
                     loadHousehold(null, '@(ViewBag.RegionId)', data[0].Value, 1);
                 }
             }

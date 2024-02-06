@@ -25,19 +25,20 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys
                        FROM AspNetUserRoles ur
                 JOIN AspNetRoles role ON role.Id = ur.RoleId
                 WHERE ur.UserId = u.Id
-                   FOR XML PATH('')), 1, 2, '') AS AllRoles,
-            u.WorkerId,
-            a.Address_Name AS WorkName,
+                   FOR XML PATH('')), 1, 2, '') AS AllRoles, 
+                STUFF((SELECT ' |  ' + ad.Full_Address
+                       FROM Address ad 
+					   JOIN UserWorkers uw on ad.FieldWorker_ID= uw.WorkerId
+                    WHERE uw.UserId = u.Id  AND ad.Region_ID= u.RegionID
+                   FOR XML PATH('')), 1, 2, '') AS AllAddress,   
             u.RegionID,
             r.Region_Name AS RegionName
             FROM
-                AspNetUsers u
+                AspNetUsers u 
             JOIN
-                Address a ON u.WorkerId= a.FieldWorker_ID
-            JOIN
-                Region r ON u.RegionID= r.Region_ID
+                Region r ON u.RegionID = r.Region_ID
             GROUP BY
-                u.Id, u.FirstName, u.LastName, u.PhoneNumber, u.UserName, u.WorkerId, a.Address_Name, u.RegionID, r.Region_Name";
+                u.Id, u.FirstName, u.LastName, u.PhoneNumber, u.UserName, u.RegionID, r.Region_Name";
 
             using (var connection = this.CreateConnection())
             {
@@ -54,17 +55,16 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys
                     u.LastName,
 					pr.Region_Name as ProvinName,
 					di.Region_ID as DistrictId,
-					di.Region_Name as DistrictName,
-					a.Address_Name,
-					a.Full_Address,
-                    u.WorkerId,
-                    a.Address_Name AS WorkName,
+					di.Region_Name as DistrictName, 
                     u.RegionID,
-                    r.Region_Name AS RegionName
+                    r.Region_Name AS RegionName,
+                    STUFF((SELECT ' |  ' + ad.Full_Address
+                       FROM ViewAddress ad 
+					   JOIN UserWorkers uw on ad.FieldWorker_ID= uw.WorkerId
+                    WHERE uw.UserId = u.Id
+                   FOR XML PATH('')), 1, 2, '') AS Full_Address 
                 FROM
-                    AspNetUsers u
-                JOIN
-                    Address a ON u.WorkerId = a.FieldWorker_ID
+                    AspNetUsers u 
                 JOIN
                     Region r ON u.RegionID = r.Region_ID
 				LEFT JOIN Region di on u.DistrictId = di.Region_ID
@@ -88,8 +88,7 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys
                     u.PhoneNumber,
                     u.UserName,
                     STRING_AGG(role.Name, ', ') AS AllRoles,
-                    u.WorkerId,
-                    a.Address_Name AS WorkName,
+                    u.WorkerId, 
                     u.RegionID,
                     r.Region_Name AS RegionName
                 FROM
@@ -97,14 +96,12 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys
                 JOIN
                     AspNetUserRoles ur ON u.Id = ur.UserId
                 JOIN
-                    AspNetRoles role ON role.Id = ur.RoleId
-                JOIN
-                    Address a ON u.WorkerId= a.FieldWorker_ID
+                    AspNetRoles role ON role.Id = ur.RoleId 
                 JOIN
                     Region r ON u.RegionID= r.Region_ID
                 WHERE FirstName LIKE @name OR LastName LIKE @name
                 GROUP BY
-                    u.Id, u.FirstName, u.LastName, u.PhoneNumber, u.UserName, u.WorkerId, a.Address_Name, u.RegionID, r.Region_Name";
+                    u.Id, u.FirstName, u.LastName, u.PhoneNumber, u.UserName, u.RegionID, r.Region_Name";
 
             var parameters = new { name = $"%{name}%" };
             using (var connection = this.CreateConnection())

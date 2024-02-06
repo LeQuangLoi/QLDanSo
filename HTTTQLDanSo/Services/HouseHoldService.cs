@@ -17,9 +17,11 @@ namespace HTTTQLDanSo.Services
         private readonly IFamilyMemberRepository _iFamilyMemberRepository;
         private readonly IHealthInformationRepository _healthInformationRepository;
 
+        private readonly IUserWorkerRepository _iUserWorkerRepository;
+
         public HouseHoldService(IRegionRepository iRegionRepository, IAddressRepository iAddressRepository
             , IHouseHoldRepository iHouseHoldRepository, IPersonalChangeRepository iPersonalChangeRepository, IPersonalRepository iPersonalRepository
-            , IFamilyMemberRepository iFamilyMemberRepository, IHealthInformationRepository healthInformationRepository)
+            , IFamilyMemberRepository iFamilyMemberRepository, IHealthInformationRepository healthInformationRepository, IUserWorkerRepository iUserWorkerRepository)
         {
             _iRegionRepository = iRegionRepository;
             _iAddressRepository = iAddressRepository;
@@ -28,6 +30,7 @@ namespace HTTTQLDanSo.Services
             _iPersonalRepository = iPersonalRepository;
             _iFamilyMemberRepository = iFamilyMemberRepository;
             _healthInformationRepository = healthInformationRepository;
+            _iUserWorkerRepository = iUserWorkerRepository;
         }
 
         public async Task<IEnumerable<Address>> GetAddressesByRegionIdAsync(string regionId)
@@ -47,6 +50,16 @@ namespace HTTTQLDanSo.Services
                 return Enumerable.Empty<Address>();
             }
             return await _iAddressRepository.GetAddressesByWorkerIdAsync(wokerId.Value);
+        }
+
+        public async Task<IEnumerable<UserWorker>> GetUserWorkerByUserIdAsync(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Enumerable.Empty<UserWorker>();
+            }
+
+            return await _iUserWorkerRepository.GetUserWorkerByUserIdAsync(userId);
         }
 
         public async Task<IEnumerable<Region>> GetRegionsByParrentIdAsync(string parrentId)

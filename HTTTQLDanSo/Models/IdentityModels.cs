@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -20,6 +21,7 @@ namespace HTTTQLDanSo.Models
 
         public string RegionID { set; get; }
 
+        [NotMapped]
         public int? WorkerId { set; get; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -29,7 +31,6 @@ namespace HTTTQLDanSo.Models
             // Add custom user claims here
             userIdentity.AddClaim(new Claim("Id", Id));
             userIdentity.AddClaim(new Claim("RegionID", RegionID));
-            userIdentity.AddClaim(new Claim("WorkerId", WorkerId.ToString()));
             userIdentity.AddClaim(new Claim("LastName", LastName));
             userIdentity.AddClaim(new Claim("FirstName", FirstName));
             return userIdentity;

@@ -14,6 +14,8 @@ namespace HTTTQLDanSo.Services
 
         Task<IEnumerable<Address>> GetAddressesByWorkerIdAsync(int? workerId);
 
+        Task<IEnumerable<UserWorker>> GetUserWorkerByUserIdAsync(string userId);
+
         Task<IEnumerable<HouseHold>> GetHouseHoldByHouseHoldIDAndRegionIdAndStatusAsync(string regionId, string addressID, IEnumerable<string> houseHoldStatus);
 
         Task<IEnumerable<PersonalInfo>> GetPersonalByHouseHoldIDAndRegionIdAndpersonStatussAsync(string houseHoldID, string regionId, IEnumerable<string> personStatuss);

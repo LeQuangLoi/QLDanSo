@@ -25,16 +25,16 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys
                        FROM AspNetUserRoles ur
                 JOIN AspNetRoles role ON role.Id = ur.RoleId
                 WHERE ur.UserId = u.Id
-                   FOR XML PATH('')), 1, 2, '') AS AllRoles, 
+                   FOR XML PATH('')), 1, 2, '') AS AllRoles,
                 STUFF((SELECT ' |  ' + ad.Full_Address
-                       FROM Address ad 
+                       FROM Address ad
 					   JOIN UserWorkers uw on ad.FieldWorker_ID= uw.WorkerId
                     WHERE uw.UserId = u.Id  AND ad.Region_ID= u.RegionID
-                   FOR XML PATH('')), 1, 2, '') AS AllAddress,   
+                   FOR XML PATH('')), 1, 2, '') AS AllAddress,
             u.RegionID,
             r.Region_Name AS RegionName
             FROM
-                AspNetUsers u 
+                AspNetUsers u
             JOIN
                 Region r ON u.RegionID = r.Region_ID
             GROUP BY
@@ -46,7 +46,7 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys
             }
         }
 
-        public async Task<AccountViewModel> GetAllAccountsByIdAsync(string id)
+        public async Task<AccountViewModel> GetAccountsByIdAsync(string id)
         {
             const string query = @"
                   SELECT
@@ -55,16 +55,16 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys
                     u.LastName,
 					pr.Region_Name as ProvinName,
 					di.Region_ID as DistrictId,
-					di.Region_Name as DistrictName, 
+					di.Region_Name as DistrictName,
                     u.RegionID,
                     r.Region_Name AS RegionName,
                     STUFF((SELECT ' |  ' + ad.Full_Address
-                       FROM ViewAddress ad 
+                       FROM ViewAddress ad
 					   JOIN UserWorkers uw on ad.FieldWorker_ID= uw.WorkerId
-                    WHERE uw.UserId = u.Id
-                   FOR XML PATH('')), 1, 2, '') AS Full_Address 
+                    WHERE uw.UserId = u.Id AND ad.Region_ID= u.RegionID
+                   FOR XML PATH('')), 1, 2, '') AS Full_Address
                 FROM
-                    AspNetUsers u 
+                    AspNetUsers u
                 JOIN
                     Region r ON u.RegionID = r.Region_ID
 				LEFT JOIN Region di on u.DistrictId = di.Region_ID
@@ -88,7 +88,7 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys
                     u.PhoneNumber,
                     u.UserName,
                     STRING_AGG(role.Name, ', ') AS AllRoles,
-                    u.WorkerId, 
+                    u.WorkerId,
                     u.RegionID,
                     r.Region_Name AS RegionName
                 FROM
@@ -96,7 +96,7 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys
                 JOIN
                     AspNetUserRoles ur ON u.Id = ur.UserId
                 JOIN
-                    AspNetRoles role ON role.Id = ur.RoleId 
+                    AspNetRoles role ON role.Id = ur.RoleId
                 JOIN
                     Region r ON u.RegionID= r.Region_ID
                 WHERE FirstName LIKE @name OR LastName LIKE @name

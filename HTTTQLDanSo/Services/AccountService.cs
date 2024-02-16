@@ -293,7 +293,7 @@ namespace HTTTQLDanSo.Services
             {
                 var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
                 var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-                var account = await _iAccountRepository.GetAllAccountsByIdAsync(id);
+                var account = await _iAccountRepository.GetAccountsByIdAsync(id);
                 var user = await manager.FindByIdAsync(id);
                 if (user == null)
                 {
@@ -327,7 +327,7 @@ namespace HTTTQLDanSo.Services
 
         public async Task<AccountViewModel> GetAccountByIdAsync(string id)
         {
-            return await _iAccountRepository.GetAllAccountsByIdAsync(id);
+            return await _iAccountRepository.GetAccountsByIdAsync(id);
         }
     }
 }

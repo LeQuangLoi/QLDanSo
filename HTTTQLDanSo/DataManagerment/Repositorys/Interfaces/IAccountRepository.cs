@@ -8,7 +8,7 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys.Interfaces
     {
         Task<IEnumerable<Models.AccountViewModel>> GetAllAccountsAsync();
 
-        Task<AccountViewModel> GetAllAccountsByIdAsync(string id);
+        Task<AccountViewModel> GetAccountsByIdAsync(string id);
 
         Task<IEnumerable<AccountViewModel>> GetAllAccountsByNameAsync(string name);
     }

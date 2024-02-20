@@ -39,9 +39,9 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys.Interfaces
                             , Ad.Address_ID
                             , Ad.Full_Address
                             , Ad.Notes
-                            , au.LastName + ' ' + au.FirstName 
+                            , au.LastName + ' ' + au.FirstName AS FieldWorker_Name
                         FROM UserWorkers uw
-                        JOIN Address Ad ON uw.WorkerId = ad.FieldWorker_ID 
+                        JOIN Address Ad ON uw.WorkerId = ad.FieldWorker_ID
                         JOIN AspNetUsers au ON uw.UserId=au.Id AND au.RegionID= ad.Region_ID
                         WHERE uw.[UserId] =  @userId";
 

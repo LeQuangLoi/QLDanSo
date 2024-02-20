@@ -287,10 +287,7 @@ namespace HTTTQLDanSo.Controllers
         }
 
         public async Task<ActionResult> LoadAddressesByWorkerIdAsync()
-        {
-            var workerId = IdentityExtensions.GetWorkerId(HttpContext.User.Identity);
-            var address = await _houseHoldService.GetAddressesByWorkerIdAsync(workerId);
-
+        { 
             var selectList = await GetAddressesByUserIdAsync();
 
             return Json(selectList, JsonRequestBehavior.AllowGet);

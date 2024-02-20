@@ -34,15 +34,16 @@ namespace HTTTQLDanSo.DataManagerment.Repositorys.Interfaces
             {
                 const string query = @"
                         SELECT
-                             uw.WorkerId
+                              uw.WorkerId
                             , uw.UserId
                             , Ad.Address_ID
                             , Ad.Full_Address
                             , Ad.Notes
-                            , Ad.FieldWorker_Name
+                            , au.LastName + ' ' + au.FirstName 
                         FROM UserWorkers uw
-                        JOIN ViewAddress Ad ON uw.WorkerId = ad.FieldWorker_ID
-                        WHERE uw.[UserId] = @userId";
+                        JOIN Address Ad ON uw.WorkerId = ad.FieldWorker_ID 
+                        JOIN AspNetUsers au ON uw.UserId=au.Id AND au.RegionID= ad.Region_ID
+                        WHERE uw.[UserId] =  @userId";
 
                 return await connection.QueryAsync<UserWorker>(query, new { userId });
             }
